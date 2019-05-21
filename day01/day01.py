@@ -10,9 +10,12 @@ def part1(file_name):
     >>> part1('day01.txt')
     592
     """
+    total = 0
     with open(file_name) as f:
-        freqs = [int(line) for line in f]
-    return sum(freqs)
+        for line in f:
+            s = line.rstrip("\n")
+            total += int(s)
+    return total
 
 
 def part2(file_name):
@@ -23,15 +26,17 @@ def part2(file_name):
     >>> part2('day01.txt')
     241
     """
-
+    freqs = []
+    with open(file_name) as f:
+        for line in f:
+            s = line.rstrip("\n")
+            freqs.append(int(s))
     total = 0
     seen = {total}  # seen is a set
-    with open(file_name) as f:
-        freqs = [int(line) for line in f]
     # cycle() because we may have to loop through freqs
     # more than once before the running total repeats.
-    for f in cycle(freqs):
-        total += f
+    for freq in cycle(freqs):
+        total += freq
         if total in seen:
             return total
         else:
@@ -40,4 +45,5 @@ def part2(file_name):
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()
