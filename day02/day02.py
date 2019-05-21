@@ -41,10 +41,9 @@ def _check_chars(id):
     """
     d = {}
     for c in id:
-        if d.get(c):
-            d[c] += 1
-        else:
-            d[c] = 1
+        # If necessary, add c to d, with value of 0
+        d.setdefault(c, 0)
+        d[c] += 1
     counts = d.values()
     return 2 in counts, 3 in counts
 
@@ -58,11 +57,13 @@ def part2(file_name):
     """
     with open(file_name) as f:
         ids = [line.rstrip() for line in f]
-    for id1 in ids:
-        for id2 in ids:
-            b, common_chars = _diff_by_1(id1, id2)
-            if b:
-                return common_chars
+    for i, id1 in enumerate(ids):
+        for j, id2 in enumerate(ids):
+            # If i == j, id1 == id2
+            if i != j:
+                b, common_chars = _diff_by_1(id1, id2)
+                if b:
+                    return common_chars
 
 
 def _diff_by_1(id1, id2):
@@ -72,27 +73,28 @@ def _diff_by_1(id1, id2):
 
     >>> _diff_by_1('ABCD', 'ABCX')
     (True, 'ABC')
-    >>> _diff_by_1('AZBCD', 'APBCX')[0]
-    False
-    >>> _diff_by_1('ABCD', 'ABCD')[0]
-    False
-    >>> _diff_by_1('ABCDE', 'ABCD')[0]
-    False
-    >>> _diff_by_1('ABCD', 'ABCD')[0]
-    False
+    >>> _diff_by_1('AZBCD', 'APBCX')
+    (False, None)
+    >>> _diff_by_1('ABCD', 'ABCD') # Same string
+    (False, None)
+    >>> _diff_by_1('ABCDE', 'ABCD') # Different lengths
+    (False, None)
     """
-    if (id1 == id2) or (len(id1) != len(id2)):
-        return False, ""
+    if len(id1) != len(id2):
+        return False, None
     diffs = 0
     common_chars = ""
     for i, _ in enumerate(id1):
         if id1[i] != id2[i]:
             diffs += 1
             if diffs > 1:
-                return False, ""
+                break  # No need to continue
         else:
             common_chars += id1[i]
-    return True, common_chars
+    if diffs == 1:
+        return True, common_chars
+    else:
+        return False, None
 
 
 if __name__ == "__main__":
