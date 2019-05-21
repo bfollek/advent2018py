@@ -15,13 +15,13 @@ def part1(file_name):
     count_2 = 0
     count_3 = 0
     with open(file_name) as f:
-        for line in f:
-            id = line.rstrip("\n")
-            has_2, has_3 = _check_chars(id)
-            if has_2:
-                count_2 += 1
-            if has_3:
-                count_3 += 1
+        ids = [line.rstrip() for line in f]
+    for id in ids:
+        has_2, has_3 = _check_chars(id)
+        if has_2:
+            count_2 += 1
+        if has_3:
+            count_3 += 1
     return count_2 * count_3
 
 
@@ -56,11 +56,8 @@ def part2(file_name):
     >>> part2('day02.txt')
     'fvstwblgqkhpuixdrnevmaycd'
     """
-    ids = []
     with open(file_name) as f:
-        for line in f:
-            id = line.rstrip("\n")
-            ids.append(id)
+        ids = [line.rstrip() for line in f]
     for id1 in ids:
         for id2 in ids:
             b, common_chars = _diff_by_1(id1, id2)
