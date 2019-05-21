@@ -15,13 +15,13 @@ def part1(file_name):
     count_2 = 0
     count_3 = 0
     with open(file_name) as f:
-        ids = [line.rstrip() for line in f]
-    for id in ids:
-        has_2, has_3 = _check_chars(id)
-        if has_2:
-            count_2 += 1
-        if has_3:
-            count_3 += 1
+        for line in f:
+            id = line.rstrip()
+            has_2, has_3 = _check_chars(id)
+            if has_2:
+                count_2 += 1
+            if has_3:
+                count_3 += 1
     return count_2 * count_3
 
 
