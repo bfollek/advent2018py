@@ -17,7 +17,7 @@ def part1(file_name):
     with open(file_name) as f:
         for line in f:
             id = line.rstrip("\n")
-            (has_2, has_3) = _check_chars(id)
+            has_2, has_3 = _check_chars(id)
             if has_2:
                 count_2 += 1
             if has_3:
@@ -46,7 +46,7 @@ def _check_chars(id):
         else:
             d[c] = 1
     counts = d.values()
-    return (2 in counts, 3 in counts)
+    return 2 in counts, 3 in counts
 
 
 def part2(file_name):
@@ -88,7 +88,7 @@ def _diff_by_1(id1, id2):
         return False, ""
     diffs = 0
     common_chars = ""
-    for i in range(len(id1)):
+    for i, _ in enumerate(id1):
         if id1[i] != id2[i]:
             diffs += 1
             if diffs > 1:
