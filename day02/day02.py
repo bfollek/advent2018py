@@ -63,7 +63,7 @@ def part2(file_name):
             ids.append(id)
     for id1 in ids:
         for id2 in ids:
-            (b, common_chars) = _diff_by_1(id1, id2)
+            b, common_chars = _diff_by_1(id1, id2)
             if b:
                 return common_chars
 
