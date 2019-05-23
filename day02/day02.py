@@ -3,14 +3,11 @@
 
 def part1(file_name):
     """
-   Calculate the checksum. Day 2, part 1.
+    Calculate the checksum. Day 2, part 1.
 
-   To do this count the number of letters that appear exactly twice in an ID,
-   and the number of letters that appear exactly three times. Then multiply
-   the counts together.
-
-    >>> part1('day02.txt')
-    8715
+    To do this count the number of letters that appear exactly twice in an ID,
+    and the number of letters that appear exactly three times. Then multiply
+    the counts together.
     """
     count_2 = 0
     count_3 = 0
@@ -29,15 +26,6 @@ def _check_chars(id):
     """
     Return a tuple of two booleans. The first is True if any char in id occurs twice.
     The second is True if any char occurs three times.
-
-    >>> _check_chars('AAAABBBCCDAABBB')
-    (True, False)
-    >>> _check_chars('AAAABBCCDAAB')
-    (True, True)
-    >>> _check_chars('AACCAABBCDAAB')
-    (False, True)
-    >>> _check_chars('AACAABBCCDABACB')
-    (False, False)
     """
     d = {}
     for c in id:
@@ -51,9 +39,6 @@ def _check_chars(id):
 def part2(file_name):
     """
     Find the 2 id's that differ by just 1 char, and return their common chars.
-
-    >>> part2('day02.txt')
-    'fvstwblgqkhpuixdrnevmaycd'
     """
     with open(file_name) as f:
         ids = [line.rstrip() for line in f]
@@ -70,15 +55,6 @@ def _diff_by_1(id1, id2):
     """
     Return a tuple (boolean, string). If the boolean is True,
     the string is the chars that id1 and id2 have in common.
-
-    >>> _diff_by_1('ABCD', 'ABCX')
-    (True, 'ABC')
-    >>> _diff_by_1('AZBCD', 'APBCX')
-    (False, None)
-    >>> _diff_by_1('ABCD', 'ABCD') # Same string
-    (False, None)
-    >>> _diff_by_1('ABCDE', 'ABCD') # Different lengths
-    (False, None)
     """
     if len(id1) != len(id2):
         return False, None
@@ -95,9 +71,3 @@ def _diff_by_1(id1, id2):
         return True, common_chars
     else:
         return False, None
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod()
