@@ -3,7 +3,7 @@
 
 def part1(file_name):
     """
-    Calculate the checksum. Day 2, part 1.
+    Calculate the checksum.
 
     To do this count the number of letters that appear exactly twice in an ID,
     and the number of letters that appear exactly three times. Then multiply

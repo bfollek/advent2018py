@@ -5,7 +5,7 @@ from itertools import cycle
 
 def part1(file_name):
     """
-    Find the total of the frequencies. Day 1, part 1.
+    Find the total of the frequencies.
     """
     with open(file_name) as f:
         freqs = [int(line.rstrip()) for line in f]
@@ -15,7 +15,6 @@ def part1(file_name):
 def part2(file_name):
     """
     Keep a running total, and find the first value that repeats.
-    Day 1, part 2.
     """
     total = 0
     seen = {total}  # seen is a set
