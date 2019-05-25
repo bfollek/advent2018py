@@ -5,14 +5,14 @@ from typing import Tuple
 
 @dataclass
 class Claim:
-    id: str
-    x: int
-    y: int
-    width: int
-    height: int
+    _id: str
+    _x: int
+    _y: int
+    _width: int
+    _height: int
 
     # #14 @ 690,863: 12x20
-    CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
+    _CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
     def sq_inches(self: "Claim") -> Tuple[int, int]:
         """
@@ -20,8 +20,8 @@ class Claim:
         """
         return [
             (i, j)
-            for i in range(self.x, self.x + self.width)
-            for j in range(self.y, self.y + self.height)
+            for i in range(self._x, self._x + self._width)
+            for j in range(self._y, self._y + self._height)
         ]
 
     def overlaps(self: "Claim", other: "Claim") -> bool:
@@ -31,7 +31,7 @@ class Claim:
 
     @classmethod
     def new_from_string(cls, s: str) -> "Claim":
-        m = re.search(cls.CLAIM_REGEX, s)
+        m = re.search(cls._CLAIM_REGEX, s)
         flds = list(m.groups())
         # Convert to int where necessary
         for i in range(1, len(flds)):

@@ -9,11 +9,11 @@ def test_part1():
 def test_claim_new_from_string():
     s = "#14 @ 690,863: 12x20"
     claim = Claim.new_from_string(s)
-    assert claim.id == "14"
-    assert claim.x == 690
-    assert claim.y == 863
-    assert claim.width == 12
-    assert claim.height == 20
+    assert claim._id == "14"
+    assert claim._x == 690
+    assert claim._y == 863
+    assert claim._width == 12
+    assert claim._height == 20
 
 
 def test_claim_sq_inches():
