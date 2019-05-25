@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 from typing import Tuple
 
 
@@ -9,6 +10,9 @@ class Claim:
     y: int
     width: int
     height: int
+
+    # #14 @ 690,863: 12x20
+    CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
     def sq_inches(self: "Claim") -> Tuple[int, int]:
         """
@@ -24,3 +28,12 @@ class Claim:
         self_set = set(self.sq_inches())
         other_set = set(other.sq_inches())
         return len(self_set & other_set) > 0
+
+    @classmethod
+    def new_from_string(cls, s: str) -> "Claim":
+        m = re.search(cls.CLAIM_REGEX, s)
+        flds = list(m.groups())
+        # Convert to int where necessary
+        for i in range(1, len(flds)):
+            flds[i] = int(flds[i])
+        return Claim(*flds)

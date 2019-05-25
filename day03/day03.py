@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-import re
 from claim import Claim
-
-
-# #14 @ 690,863: 12x20
-CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
 
 def part1(file_name):
@@ -13,7 +8,7 @@ def part1(file_name):
     How many square inches of fabric are within two or more claims?
     """
     with open(file_name) as f:
-        claims = [_line_to_claim(line.rstrip()) for line in f]
+        claims = [Claim.new_from_string(line.rstrip()) for line in f]
     d = {}
     # Count how many times each square inch appears in a claim
     for claim in claims:
@@ -36,12 +31,3 @@ def part2(file_name):
 #    which claims claim it?
 # remove all values that contain more than one claim
 # value that's left is the answer
-
-
-def _line_to_claim(line):
-    m = re.search(CLAIM_REGEX, line)
-    flds = list(m.groups())
-    # Convert to int where necessary
-    for i in range(1, len(flds)):
-        flds[i] = int(flds[i])
-    return Claim(*flds)

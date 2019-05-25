@@ -1,4 +1,4 @@
-from day03 import part1, _line_to_claim
+from day03 import part1
 from claim import Claim
 
 
@@ -6,9 +6,9 @@ def test_part1():
     assert part1("day03/day03.txt") == 109716
 
 
-def test_line_to_claim():
-    line = "#14 @ 690,863: 12x20"
-    claim = _line_to_claim(line)
+def test_claim_new_from_string():
+    s = "#14 @ 690,863: 12x20"
+    claim = Claim.new_from_string(s)
     assert claim.id == "14"
     assert claim.x == 690
     assert claim.y == 863
@@ -17,7 +17,7 @@ def test_line_to_claim():
 
 
 def test_claim_sq_inches():
-    c1 = _line_to_claim("#1 @ 1,3: 4x4")
+    c1 = Claim.new_from_string("#1 @ 1,3: 4x4")
     assert c1.sq_inches() == [
         (1, 3),
         (1, 4),
@@ -39,10 +39,10 @@ def test_claim_sq_inches():
 
 
 def test_claim_overlap():
-    c1 = _line_to_claim("#1 @ 1,3: 4x4")
-    c2 = _line_to_claim("#2 @ 3,1: 4x4")
-    c3 = _line_to_claim("#3 @ 5,5: 2x2")
-    c4 = _line_to_claim("#4 @ 1,1: 1x1")
+    c1 = Claim.new_from_string("#1 @ 1,3: 4x4")
+    c2 = Claim.new_from_string("#2 @ 3,1: 4x4")
+    c3 = Claim.new_from_string("#3 @ 5,5: 2x2")
+    c4 = Claim.new_from_string("#4 @ 1,1: 1x1")
     assert c1.overlaps(c2)
     assert c2.overlaps(c1)
     assert c1.overlaps(c3) == False
