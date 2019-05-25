@@ -22,20 +22,6 @@ def part1(file_name):
     return count_2 * count_3
 
 
-def _check_chars(id):
-    """
-    Return a tuple of two booleans. The first is True if any char in id occurs twice.
-    The second is True if any char occurs three times.
-    """
-    d = {}
-    for c in id:
-        # If necessary, add c to d, with value of 0
-        d.setdefault(c, 0)
-        d[c] += 1
-    counts = d.values()
-    return 2 in counts, 3 in counts
-
-
 def part2(file_name):
     """
     Find the 2 id's that differ by just 1 char, and return their common chars.
@@ -49,6 +35,20 @@ def part2(file_name):
                 b, common_chars = _diff_by_1(id1, id2)
                 if b:
                     return common_chars
+
+
+def _check_chars(id):
+    """
+    Return a tuple of two booleans. The first is True if any char in id occurs twice.
+    The second is True if any char occurs three times.
+    """
+    d = {}
+    for c in id:
+        # If necessary, add c to d, with value of 0
+        d.setdefault(c, 0)
+        d[c] += 1
+    counts = d.values()
+    return 2 in counts, 3 in counts
 
 
 def _diff_by_1(id1, id2):

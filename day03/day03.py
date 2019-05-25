@@ -35,6 +35,17 @@ def part1(file_name):
     return len([v for v in d.values() if v > 1])
 
 
+def part2(file_name):
+    pass
+
+
+# part2
+# for each sq inch
+#    which claims claim it?
+# remove all values that contain more than one claim
+# value that's left is the answer
+
+
 def _line_to_claim(line):
     m = re.search(CLAIM_REGEX, line)
     flds = list(m.groups())
