@@ -17,11 +17,9 @@ def part1(file_name):
     d = {}
     # Count how many times each square inch appears in a claim
     for claim in claims:
-        for i in range(claim.x, claim.x + claim.width):
-            for j in range(claim.y, claim.y + claim.height):
-                sq_inch = (i, j)
-                d.setdefault(sq_inch, 0)
-                d[sq_inch] += 1
+        for sq_inch in claim.sq_inches():
+            d.setdefault(sq_inch, 0)
+            d[sq_inch] += 1
     # Count the # of values in d that are > 1
     return len([v for v in d.values() if v > 1])
 
