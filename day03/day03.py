@@ -1,16 +1,7 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass
 import re
-
-
-@dataclass
-class Claim:
-    id: str
-    x: int
-    y: int
-    width: int
-    height: int
+from claim import Claim
 
 
 # #14 @ 690,863: 12x20
@@ -36,6 +27,9 @@ def part1(file_name):
 
 
 def part2(file_name):
+    """
+    Find the one claim that doesn't overlap any other claim.
+    """
     pass
 
 
