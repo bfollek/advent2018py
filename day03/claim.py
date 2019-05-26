@@ -14,7 +14,7 @@ class Claim:
     _height: int
 
     # #14 @ 690,863: 12x20
-    _CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
+    CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
     # Large cache makes things faster. Jump to 4096 didn't help.
     @lru_cache(maxsize=2048)
@@ -35,7 +35,7 @@ class Claim:
 
     @classmethod
     def new_from_string(cls, s: str) -> "Claim":
-        m = re.search(cls._CLAIM_REGEX, s)
+        m = re.search(cls.CLAIM_REGEX, s)
         flds = list(m.groups())
         # Convert to int where necessary
         for i in range(1, len(flds)):
