@@ -38,12 +38,3 @@ def _no_overlap(claim, claims):
         if claim.overlaps(other):
             return False
     return True
-
-
-# part2
-# Use overlaps()
-
-# for each sq inch
-#    which claims claim it?
-# remove all values that contain more than one claim
-# value that's left is the answer
