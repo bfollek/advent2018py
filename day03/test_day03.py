@@ -8,6 +8,7 @@ def test_part1():
 
 def test_part2():
     assert part2("day03/day03.txt") == "124"
+    print(Claim.sq_inches.cache_info())
 
 
 def test_claim_new_from_string():
