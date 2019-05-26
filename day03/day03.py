@@ -41,22 +41,3 @@ def _no_overlap(claim, claims):
         if claim.overlaps(other):
             return False
     return True
-
-
-def part2_v2(file_name):
-    with open(file_name) as f:
-        claims = [Claim.new_from_string(line.rstrip()) for line in f]
-    d = defaultdict(list)
-    # Track each square inch's claims
-    for claim in claims:
-        for sq_inch in claim.sq_inches():
-            d[sq_inch].append(claim)
-    just_one = set([val[0] for val in d.values() if len(val) == 1])
-    print(len(just_one))
-    # for claim_list in d.values():
-    #     if len(claim_list) > 1:
-    #         continue
-    #     claim = claim_list[0]
-    #     if _no_overlap(claim, claims):
-    #         return claim.id
-    # raise NOT_FOUND

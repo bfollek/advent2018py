@@ -1,4 +1,4 @@
-from day03 import part1, part2, part2_v2
+from day03 import part1, part2
 from claim import Claim
 
 
@@ -9,10 +9,6 @@ def test_part1():
 def test_part2():
     assert part2("day03/day03.txt") == "124"
     print(Claim.sq_inches.cache_info())
-
-
-def test_part2_v2():
-    assert part2_v2("day03/day03.txt") == "124"
 
 
 def test_claim_new_from_string():
