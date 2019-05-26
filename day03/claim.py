@@ -5,7 +5,7 @@ from typing import Tuple
 
 @dataclass
 class Claim:
-    _id: str
+    id: str
     _x: int
     _y: int
     _width: int

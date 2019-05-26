@@ -21,12 +21,28 @@ def part1(file_name):
 
 def part2(file_name):
     """
-    Find the one claim that doesn't overlap any other claim.
+    Find the one claim that doesn't overlap any other claim. Return its id.
     """
-    pass
+    with open(file_name) as f:
+        claims = [Claim.new_from_string(line.rstrip()) for line in f]
+    for claim in claims:
+        if _no_overlap(claim, claims):
+            return claim.id
+    raise "Could not find claim that doesn't overlap any other claim."
+
+
+def _no_overlap(claim, claims):
+    for other in claims:
+        if claim == other:
+            continue
+        if claim.overlaps(other):
+            return False
+    return True
 
 
 # part2
+# Use overlaps()
+
 # for each sq inch
 #    which claims claim it?
 # remove all values that contain more than one claim

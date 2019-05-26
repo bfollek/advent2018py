@@ -1,4 +1,4 @@
-from day03 import part1
+from day03 import part1, part2
 from claim import Claim
 
 
@@ -6,10 +6,14 @@ def test_part1():
     assert part1("day03/day03.txt") == 109716
 
 
+def test_part2():
+    assert part2("day03/day03.txt") == "124"
+
+
 def test_claim_new_from_string():
     s = "#14 @ 690,863: 12x20"
     claim = Claim.new_from_string(s)
-    assert claim._id == "14"
+    assert claim.id == "14"
     assert claim._x == 690
     assert claim._y == 863
     assert claim._width == 12
