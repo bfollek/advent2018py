@@ -1,9 +1,11 @@
 from dataclasses import dataclass
+from functools import lru_cache
 import re
 from typing import Tuple
 
 
-@dataclass
+# eq and frozen make Claim hashable, so that we can cache sq_inches().
+@dataclass(eq=True, frozen=True)
 class Claim:
     id: str
     _x: int
@@ -14,6 +16,8 @@ class Claim:
     # #14 @ 690,863: 12x20
     _CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
+    # Large cache makes things faster. Jump to 4096 didn't help.
+    @lru_cache(maxsize=2048)
     def sq_inches(self: "Claim") -> Tuple[int, int]:
         """
         Return a list of (int, int) tuples. Each tuple is a square inch in the claim.
