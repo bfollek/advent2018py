@@ -21,6 +21,10 @@ def part1(file_name):
     return len([v for v in d.values() if v > 1])
 
 
+def part2(file_name):
+    return part2_v2(file_name)
+
+
 def part2_v1(file_name):
     """
     Find the one claim that doesn't overlap any other claim. Return its id.
@@ -42,7 +46,7 @@ def _no_overlap(claim, claims):
     return True
 
 
-def part2(file_name):
+def part2_v2(file_name):
     """
     Find the one claim that doesn't overlap any other claim. Return its id.
 
@@ -51,14 +55,14 @@ def part2(file_name):
     with open(file_name) as f:
         claims = [Claim.new_from_string(line.rstrip()) for line in f]
     # Each key is a claim ID. Each value is a bool.
-    d_claim_ids_no_overlap = {}
+    d_claim_ids = {}
     # Each key is a sq inch tuple. Each value is a list of claim ID's.
     d_sq_inches = defaultdict(list)
     # Load both dictionaries. d_claim_ids will end up with all claim ID's.
     # d_sq_inches will end up with all square inches that have claims on them,
     # and a list of the claim ID's that have the claims.
     for claim in claims:
-        d_claim_ids_no_overlap[claim.id] = True
+        d_claim_ids[claim.id] = True
         for sq_inch in claim.sq_inches():
             d_sq_inches[sq_inch].append(claim.id)
     # Now for all square inches with more than one claim,
@@ -66,9 +70,40 @@ def part2(file_name):
     for claim_list in d_sq_inches.values():
         if len(claim_list) > 1:
             for claim_id in claim_list:
-                d_claim_ids_no_overlap[claim_id] = False
+                d_claim_ids[claim_id] = False
     # Now return the one claim ID that's still True.
-    for claim_id, b in d_claim_ids_no_overlap.items():
+    for claim_id, b in d_claim_ids.items():
         if b:
             return claim_id
     raise NOT_FOUND
+
+
+def part2_v3(file_name):
+    """
+    Find the one claim that doesn't overlap any other claim. Return its id.
+
+    This version is similar to part2_v2(), but we handle the filtering of the
+    claim ID's differently. In my haphazard benchmarking, it seems marginally
+    slower.
+    """
+    with open(file_name) as f:
+        claims = [Claim.new_from_string(line.rstrip()) for line in f]
+    # Each value is a claim ID.
+    set_claim_ids = set()
+    # Each key is a sq inch tuple. Each value is a list of claim ID's.
+    d_sq_inches = defaultdict(list)
+    # set_claim_ids will end up with all claim ID's.
+    # d_sq_inches will end up with all square inches that have claims on them,
+    # and a list of the claim ID's that have the claims.
+    for claim in claims:
+        set_claim_ids.add(claim.id)
+        for sq_inch in claim.sq_inches():
+            d_sq_inches[sq_inch].append(claim.id)
+    # Now for all square inches with more than one claim,
+    # discard the claim ID's from set_claim_ids.
+    for claim_list in d_sq_inches.values():
+        if len(claim_list) > 1:
+            for claim_id in claim_list:
+                set_claim_ids.discard(claim_id)
+    # The only claim ID left is one we want.
+    return set_claim_ids.pop()
