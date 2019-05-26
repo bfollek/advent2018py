@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from collections import defaultdict
+
 
 def part1(file_name):
     """
@@ -42,10 +44,8 @@ def _check_chars(id):
     Return a tuple of two booleans. The first is True if any char in id occurs twice.
     The second is True if any char occurs three times.
     """
-    d = {}
+    d = defaultdict(lambda: 0)
     for c in id:
-        # If necessary, add c to d, with value of 0
-        d.setdefault(c, 0)
         d[c] += 1
     counts = d.values()
     return 2 in counts, 3 in counts
