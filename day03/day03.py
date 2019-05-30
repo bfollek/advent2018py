@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-from claim import Claim
 from collections import defaultdict
+
+from claim import Claim
 
 NOT_FOUND = "Could not find claim that doesn't overlap any other claim."
 
