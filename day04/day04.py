@@ -16,7 +16,6 @@ def part1(file_name):
     naps = _file_to_naps(file_name)
     nap_map = _map_naps(naps)
     # Find the guard that has the most minutes asleep.
-    most_id = None
     most_minutes = -1
     for id, minutes in nap_map.items():
         tots = sum(minutes)
@@ -37,9 +36,7 @@ def part2(file_name):
     naps = _file_to_naps(file_name)
     nap_map = _map_naps(naps)
     # Which guard is most frequently asleep on the same minute?
-    most_id = None
     most_minutes = -1
-    most_index = -1
     for id, minutes in nap_map.items():
         maxy = max(minutes)
         if maxy > most_minutes:
