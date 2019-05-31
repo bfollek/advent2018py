@@ -1,4 +1,4 @@
-# advent2018go
+# advent2018py
 Advent of Code 2018 in python
 
 #### Status
