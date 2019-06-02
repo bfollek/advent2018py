@@ -41,8 +41,6 @@ class Plane:
         return not self.is_infinite(c)
 
     def empty_locations(self):
-        # Make a square
-        # limit = (self._max_x if self._max_x > self._max_y else self._max_y) + 1
         return (
             (x, y)
             for x in range(self._min_x + 1, self._max_x)
