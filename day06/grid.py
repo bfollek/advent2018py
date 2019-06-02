@@ -5,7 +5,7 @@ from coordinate import Coordinate
 
 
 @dataclass()
-class Plane:
+class Grid:
     _min_x: int = maxsize
     _max_x: int = -1
     _min_y: int = maxsize
@@ -13,7 +13,7 @@ class Plane:
     coordinates: dict = field(default_factory=dict)
 
     def add_coordinate(self, x, y):
-        "Expand the bounds of the plain to include this coordinate."
+        "Expand the bounds of the grid to include this coordinate."
         if x < self._min_x:
             self._min_x = x
         # No elif because first coordinate will change both min and max.
@@ -27,18 +27,9 @@ class Plane:
         self.coordinates[(x, y)] = c
         return c
 
-    def is_infinite(self, c: Coordinate) -> bool:
-        "Is the coordinate infinite on this plane?"
-        return (
-            c.x <= self._min_x
-            or c.x >= self._max_x
-            or c.y <= self._min_y
-            or c.y >= self._max_y
-        )
-
     def is_finite(self, c: Coordinate) -> bool:
-        "Is the coordinate finite on this plane?"
-        return not self.is_infinite(c)
+        "Is the coordinate finite on this grid?"
+        return self._min_x < c.x < self._max_x and self._min_y < c.y < self._max_y
 
     def empty_locations(self):
         return (

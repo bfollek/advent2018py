@@ -3,7 +3,7 @@
 from sys import maxsize
 
 from coordinate import Coordinate
-from plane import Plane
+from grid import Grid
 
 
 def part1(file_name):
@@ -14,19 +14,17 @@ def part1(file_name):
     """
     with open(file_name) as f:
         lines = [line.rstrip() for line in f]
-    p = Plane()
+    g = Grid()
     for line in lines:
         x, y = map(int, line.split(","))
-        p.add_coordinate(x, y)
-    for x, y in p.empty_locations():
-        _find_closest_coord(x, y, p.coordinates.values())
+        g.add_coordinate(x, y)
+    for x, y in g.empty_locations():
+        _find_closest_coord(x, y, g.coordinates.values())
     # Find the finite coordinate closest to the most locations.
     # print(p.coordinates[(3, 4)].num_closest_to())
     # for c in p.coordinates.values():
-    #     print(f"c: {(c.x, c.y)}, {c.num_closest_to()}, {p.is_infinite(c)}")
-    return max(
-        [c.num_closest_to() for c in p.coordinates.values() if not p.is_infinite(c)]
-    )
+    #     print(f"c: {(c.x, c.y)}, {c.num_closest_to()}, finite: {p.is_finite(c)}")
+    return max([c.num_closest_to() for c in g.coordinates.values() if g.is_finite(c)])
 
 
 def _find_closest_coord(x, y, coords):
