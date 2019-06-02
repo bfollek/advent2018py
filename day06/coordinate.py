@@ -7,6 +7,14 @@ class Coordinate:
     y: int
     closest_to: list = field(default_factory=list)
 
-    def distance(self, other: "Coordinate") -> int:
-        # Manhattan distance
-        return abs(self.x - other.x) + abs(self.y - other.y)
+    def distance(self, x: int, y: int) -> int:
+        """
+        Manhattan distance
+        """
+        return abs(self.x - x) + abs(self.y - y)
+
+    def num_closest_to(self):
+        """
+        '...including the coordinate's location itself'
+        """
+        return len(self.closest_to) + 1
