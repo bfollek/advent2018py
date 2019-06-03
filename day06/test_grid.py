@@ -23,27 +23,13 @@ def make_grid():
 
 def test_add_coordinate():
     g = make_grid()
-    assert g._min_x == 1
-    assert g._max_x == 8
-    assert g._min_y == 1
-    assert g._max_y == 9
-    assert len(g.coordinates) == 6
-
-
-def test_is_finite():
-    g = make_grid()
-    assert not g.is_finite(g.coordinates[A])
-    assert not g.is_finite(g.coordinates[B])
-    assert not g.is_finite(g.coordinates[C])
-    assert g.is_finite(g.coordinates[D])
-    assert g.is_finite(g.coordinates[E])
-    assert not g.is_finite(g.coordinates[F])
+    assert len(g._coord_dict) == 6
 
 
 def test_empty_locations():
     g = make_grid()
-    assert A not in g.empty_locations()
-    assert C not in g.empty_locations()
-    assert E not in g.empty_locations()
-    assert (4, 4) in g.empty_locations()
-    assert (7, 6) in g.empty_locations()
+    assert A not in g._empty_locations()
+    assert C not in g._empty_locations()
+    assert E not in g._empty_locations()
+    assert (4, 4) in g._empty_locations()
+    assert (7, 6) in g._empty_locations()

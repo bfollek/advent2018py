@@ -6,35 +6,63 @@ from coordinate import Coordinate
 
 @dataclass()
 class Grid:
-    _min_x: int = maxsize
-    _max_x: int = -1
-    _min_y: int = maxsize
-    _max_y: int = -1
-    coordinates: dict = field(default_factory=dict)
+    _coord_dict: dict = field(default_factory=dict)
+
+    SIZE = 400
 
     def add_coordinate(self, x, y):
-        "Expand the bounds of the grid to include this coordinate."
-        if x < self._min_x:
-            self._min_x = x
-        # No elif because first coordinate will change both min and max.
-        if x > self._max_x:
-            self._max_x = x
-        if y < self._min_y:
-            self._min_y = y
-        if y > self._max_y:
-            self._max_y = y
+        self._check_size(x, y)
         c = Coordinate(x, y)
-        self.coordinates[(x, y)] = c
+        self._coord_dict[(x, y)] = c
         return c
 
-    def is_finite(self, c: Coordinate) -> bool:
-        "Is the coordinate finite on this grid?"
-        return self._min_x < c.x < self._max_x and self._min_y < c.y < self._max_y
+    def scan(self):
+        for x, y in self._empty_locations():
+            self._find_closest_coordinate(x, y)
 
-    def empty_locations(self):
+    def largest_finite_area(self):
+        """
+        Find the coordinate with the largest finite area.
+        """
+        largest_area = -1
+        largest_coord = None
+        for c in self._coord_dict.values():
+            if c.is_infinite():
+                continue
+            if c.area() > largest_area:
+                largest_area = c.area()
+                largest_coord = c
+        return largest_coord
+
+    def _check_size(self, x, y):
+        if x >= self.SIZE or y >= self.SIZE:
+            raise ValueError(
+                f"Grid size error! Size is {self.SIZE}, input is ({x}, {y})"
+            )
+
+    def _empty_locations(self):
         return (
             (x, y)
-            for x in range(self._min_x + 1, self._max_x)
-            for y in range(self._min_y + 1, self._max_y)
-            if not (x, y) in self.coordinates
+            for x in range(0, self.SIZE)
+            for y in range(0, self.SIZE)
+            if not (x, y) in self._coord_dict
         )
+
+    def _find_closest_coordinate(self, x, y):
+        closest_dist = maxsize
+        for c in self._coord_dict.values():
+            dist = c.distance(x, y)
+            if dist < closest_dist:
+                closest_dist = dist
+                closest_coord = c
+                tied = False
+            elif dist == closest_dist:
+                tied = True
+        if not tied:
+            if self._touches_edge(x) or self._touches_edge(y):
+                closest_coord.add_infinite_location(x, y)
+            else:
+                closest_coord.add_finite_location(x, y)
+
+    def _touches_edge(self, i):
+        return i == 0 or i == self.SIZE - 1

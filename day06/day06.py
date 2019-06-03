@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from sys import maxsize
-
 from coordinate import Coordinate
 from grid import Grid
 
@@ -18,24 +16,9 @@ def part1(file_name):
     for line in lines:
         x, y = map(int, line.split(","))
         g.add_coordinate(x, y)
-    for x, y in g.empty_locations():
-        _find_closest_coord(x, y, g.coordinates.values())
-    # Find the finite coordinate closest to the most locations.
-    return max([c.num_closest_to() for c in g.coordinates.values() if g.is_finite(c)])
-
-
-def _find_closest_coord(x, y, coords):
-    closest_dist = maxsize
-    for c in coords:
-        dist = c.distance(x, y)
-        if dist < closest_dist:
-            closest_dist = dist
-            closest_coord = c
-            tied = False
-        elif dist == closest_dist:
-            tied = True
-    if not tied:
-        closest_coord.closest_to.append((x, y))
+    g.scan()
+    c = g.largest_finite_area()
+    return c.area()
 
 
 def part2(file_name):
