@@ -21,9 +21,6 @@ def part1(file_name):
     for x, y in g.empty_locations():
         _find_closest_coord(x, y, g.coordinates.values())
     # Find the finite coordinate closest to the most locations.
-    # print(p.coordinates[(3, 4)].num_closest_to())
-    # for c in p.coordinates.values():
-    #     print(f"c: {(c.x, c.y)}, {c.num_closest_to()}, finite: {p.is_finite(c)}")
     return max([c.num_closest_to() for c in g.coordinates.values() if g.is_finite(c)])
 
 
