@@ -59,10 +59,8 @@ class Grid:
             elif dist == closest_dist:
                 tied = True
         if not tied:
-            if self._touches_edge(x) or self._touches_edge(y):
-                closest_coord.add_infinite_location(x, y)
-            else:
-                closest_coord.add_finite_location(x, y)
+            infinite = self._touches_edge(x) or self._touches_edge(y)
+            closest_coord.add_location(x, y, infinite)
 
     def _touches_edge(self, i):
         return i == 0 or i == self.SIZE - 1

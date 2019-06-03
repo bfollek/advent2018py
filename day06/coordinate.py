@@ -20,13 +20,13 @@ class Coordinate:
         """
         return len(self._locations) + 1
 
-    def add_finite_location(self, x, y):
-        # Leave the _infinite flag alone. Once it's True, we don't want to clear it.
+    def add_location(self, x, y, infinite):
         self._locations.append((x, y))
-
-    def add_infinite_location(self, x, y):
-        self._locations.append((x, y))
-        self._infinite = True
+        # If infinite is True, set self._infinite to True.
+        # If infinite is False, leave self._infinite unchanged.
+        # We don't want to clear it after an earlier call set it.
+        if infinite:
+            self._infinite = True
 
     def is_infinite(self):
         return self._infinite
