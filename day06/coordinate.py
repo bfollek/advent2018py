@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 @dataclass()
 class Coordinate:
     # (x, y)
-    _point: tuple
+    point: tuple
     # Key is location point tuple (x, y). Value is distance from self to point.
     _locations: dict = field(default_factory=dict)
     _infinite: bool = False
@@ -13,7 +13,7 @@ class Coordinate:
         """
         Manhattan distance
         """
-        return abs(self._point[0] - point[0]) + abs(self._point[1] - point[1])
+        return abs(self.point[0] - point[0]) + abs(self.point[1] - point[1])
 
     def area(self):
         """
