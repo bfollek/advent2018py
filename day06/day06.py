@@ -10,13 +10,7 @@ def part1(file_name):
 
     What is the size of the largest area that isn't infinite?
     """
-    with open(file_name) as f:
-        lines = [line.rstrip() for line in f]
-    g = Grid()
-    for line in lines:
-        x, y = map(int, line.split(","))
-        g.add_coordinate((x, y))
-    g.scan()
+    g = _load_and_scan(file_name)
     c = g.largest_finite_area()
     return c.area()
 
@@ -25,4 +19,16 @@ def part2(file_name):
     """
     What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
     """
+    g = _load_and_scan(file_name)
     pass
+
+
+def _load_and_scan(file_name):
+    with open(file_name) as f:
+        lines = [line.rstrip() for line in f]
+    g = Grid()
+    for line in lines:
+        x, y = map(int, line.split(","))
+        g.add_coordinate((x, y))
+    g.scan()
+    return g

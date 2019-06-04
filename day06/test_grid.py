@@ -23,7 +23,7 @@ def make_grid():
 
 def test_add_coordinate():
     g = make_grid()
-    assert len(g._coords) == 6
+    assert len(g.coordinates) == 6
 
 
 def test_empty_locations():

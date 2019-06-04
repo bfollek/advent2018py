@@ -6,14 +6,14 @@ from coordinate import Coordinate
 
 @dataclass()
 class Grid:
-    _coords: list = field(default_factory=list)
+    coordinates: list = field(default_factory=list)
 
     SIZE = 400
 
     def add_coordinate(self, point):
         self._check_size(point)
         c = Coordinate(point)
-        self._coords.append(c)
+        self.coordinates.append(c)
         return c
 
     def scan(self):
@@ -26,7 +26,7 @@ class Grid:
         """
         largest_area = -1
         largest_coord = None
-        for c in self._coords:
+        for c in self.coordinates:
             if c.is_infinite():
                 continue
             if c.area() > largest_area:
@@ -42,7 +42,7 @@ class Grid:
 
     def _empty_locations(self):
         # set comprehension. set is much faster than even a short list when the # of iterations is so large.
-        coord_points = {c.point for c in self._coords}
+        coord_points = {c.point for c in self.coordinates}
         return (
             (x, y)
             for x in range(0, self.SIZE)
@@ -52,7 +52,7 @@ class Grid:
 
     def _find_closest_coordinate(self, point):
         closest_dist = maxsize
-        for c in self._coords:
+        for c in self.coordinates:
             dist = c.distance(point)
             if dist < closest_dist:
                 closest_dist = dist
