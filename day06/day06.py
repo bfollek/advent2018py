@@ -23,5 +23,6 @@ def part1(file_name):
 
 def part2(file_name):
     """
+    What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
     """
     pass

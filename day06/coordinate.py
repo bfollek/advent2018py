@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 class Coordinate:
     _x: int
     _y: int
-    _locations: list = field(default_factory=list)
+    _locations: dict = field(default_factory=dict)
     _infinite: bool = False
 
     def distance(self, x: int, y: int) -> int:
@@ -21,7 +21,7 @@ class Coordinate:
         return len(self._locations) + 1
 
     def add_location(self, x, y, infinite):
-        self._locations.append((x, y))
+        self._locations[(x, y)] = self.distance(x, y)
         # If infinite is True, set self._infinite to True.
         # If infinite is False, leave self._infinite unchanged.
         # We don't want to clear it after an earlier call set it.
