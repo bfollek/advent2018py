@@ -3,7 +3,9 @@ from dataclasses import dataclass, field
 
 @dataclass()
 class Coordinate:
-    _point: tuple  # (x, y)
+    # (x, y)
+    _point: tuple
+    # Key is location point tuple (x, y). Value is distance from self to point.
     _locations: dict = field(default_factory=dict)
     _infinite: bool = False
 
