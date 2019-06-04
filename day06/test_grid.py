@@ -12,12 +12,12 @@ F = (8, 9)
 
 def make_grid():
     g = Grid()
-    g.add_coordinate(*A)
-    g.add_coordinate(*B)
-    g.add_coordinate(*C)
-    g.add_coordinate(*D)
-    g.add_coordinate(*E)
-    g.add_coordinate(*F)
+    g.add_coordinate(A)
+    g.add_coordinate(B)
+    g.add_coordinate(C)
+    g.add_coordinate(D)
+    g.add_coordinate(E)
+    g.add_coordinate(F)
     return g
 
 

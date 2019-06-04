@@ -3,16 +3,15 @@ from dataclasses import dataclass, field
 
 @dataclass()
 class Coordinate:
-    _x: int
-    _y: int
+    _point: tuple  # (x, y)
     _locations: dict = field(default_factory=dict)
     _infinite: bool = False
 
-    def distance(self, x: int, y: int) -> int:
+    def distance(self, point: tuple) -> int:
         """
         Manhattan distance
         """
-        return abs(self._x - x) + abs(self._y - y)
+        return abs(self._point[0] - point[0]) + abs(self._point[1] - point[1])
 
     def area(self):
         """
@@ -20,8 +19,8 @@ class Coordinate:
         """
         return len(self._locations) + 1
 
-    def add_location(self, x, y, infinite):
-        self._locations[(x, y)] = self.distance(x, y)
+    def add_location(self, point, infinite):
+        self._locations[point] = self.distance(point)
         # If infinite is True, set self._infinite to True.
         # If infinite is False, leave self._infinite unchanged.
         # We don't want to clear it after an earlier call set it.

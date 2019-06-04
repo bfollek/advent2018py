@@ -15,7 +15,7 @@ def part1(file_name):
     g = Grid()
     for line in lines:
         x, y = map(int, line.split(","))
-        g.add_coordinate(x, y)
+        g.add_coordinate((x, y))
     g.scan()
     c = g.largest_finite_area()
     return c.area()

@@ -10,15 +10,15 @@ class Grid:
 
     SIZE = 400
 
-    def add_coordinate(self, x, y):
-        self._check_size(x, y)
-        c = Coordinate(x, y)
-        self._coord_dict[(x, y)] = c
+    def add_coordinate(self, point):
+        self._check_size(point)
+        c = Coordinate(point)
+        self._coord_dict[point] = c
         return c
 
     def scan(self):
-        for x, y in self._empty_locations():
-            self._find_closest_coordinate(x, y)
+        for point in self._empty_locations():
+            self._find_closest_coordinate(point)
 
     def largest_finite_area(self):
         """
@@ -34,10 +34,10 @@ class Grid:
                 largest_coord = c
         return largest_coord
 
-    def _check_size(self, x, y):
-        if x >= self.SIZE or y >= self.SIZE:
+    def _check_size(self, point):
+        if point[0] >= self.SIZE or point[1] >= self.SIZE:
             raise ValueError(
-                f"Grid size error! Size is {self.SIZE}, input is ({x}, {y})"
+                f"Grid size error! Size is {self.SIZE}, input is ({point})"
             )
 
     def _empty_locations(self):
@@ -48,10 +48,10 @@ class Grid:
             if not (x, y) in self._coord_dict
         )
 
-    def _find_closest_coordinate(self, x, y):
+    def _find_closest_coordinate(self, point):
         closest_dist = maxsize
         for c in self._coord_dict.values():
-            dist = c.distance(x, y)
+            dist = c.distance(point)
             if dist < closest_dist:
                 closest_dist = dist
                 closest_coord = c
@@ -59,8 +59,8 @@ class Grid:
             elif dist == closest_dist:
                 tied = True
         if not tied:
-            infinite = self._touches_edge(x) or self._touches_edge(y)
-            closest_coord.add_location(x, y, infinite)
+            infinite = self._touches_edge(point[0]) or self._touches_edge(point[1])
+            closest_coord.add_location(point, infinite)
 
     def _touches_edge(self, i):
         return i == 0 or i == self.SIZE - 1
