@@ -6,6 +6,7 @@ from coordinate import Coordinate
 
 @dataclass()
 class Grid:
+    # Key is point tuple (x, y). Value is Coordinate object.
     _coord_dict: dict = field(default_factory=dict)
 
     SIZE = 400
