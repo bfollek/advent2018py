@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 @dataclass()
 class Coordinate:
     point: tuple  # (x, y)
-    _infinite: bool = False
+    infinite: bool = False
 
     def __post_init__(self):
         # Key is location point tuple (x, y). Value is distance from self to point.
@@ -22,13 +22,10 @@ class Coordinate:
         """
         return len(self._locations) + 1
 
-    def add_location(self, point, infinite):
+    def add_location(self, point, infinite_location):
         self._locations[point] = self.distance(point)
         # If infinite is True, set self._infinite to True.
         # If infinite is False, leave self._infinite unchanged.
         # We don't want to clear it after an earlier call set it.
-        if infinite:
-            self._infinite = True
-
-    def is_infinite(self):
-        return self._infinite
+        if infinite_location:
+            self.infinite = True

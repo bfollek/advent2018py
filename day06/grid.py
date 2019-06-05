@@ -29,7 +29,7 @@ class Grid:
         largest_area = -1
         largest_coord = None
         for c in self.coordinates:
-            if c.is_infinite():
+            if c.infinite:
                 continue
             if c.area() > largest_area:
                 largest_area = c.area()
