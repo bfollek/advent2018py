@@ -3,11 +3,12 @@ from dataclasses import dataclass, field
 
 @dataclass()
 class Coordinate:
-    # (x, y)
-    point: tuple
-    # Key is location point tuple (x, y). Value is distance from self to point.
-    _locations: dict = field(default_factory=dict)
+    point: tuple  # (x, y)
     _infinite: bool = False
+
+    def __post_init__(self):
+        # Key is location point tuple (x, y). Value is distance from self to point.
+        self._locations = {}
 
     def distance(self, point: tuple) -> int:
         """

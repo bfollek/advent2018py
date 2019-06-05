@@ -4,11 +4,13 @@ from sys import maxsize
 from coordinate import Coordinate
 
 
-@dataclass()
+@dataclass(init=False)
 class Grid:
-    coordinates: list = field(default_factory=list)
 
     SIZE = 400
+
+    def __init__(self):
+        self.coordinates = []
 
     def add_coordinate(self, point):
         self._check_size(point)
