@@ -8,7 +8,7 @@ class Coordinate:
 
     def __post_init__(self):
         # Key is location point tuple (x, y). Value is distance from self to point.
-        self._locations = {}
+        self.locations = {}
 
     def distance(self, point: tuple) -> int:
         """
@@ -20,10 +20,10 @@ class Coordinate:
         """
         '...including the coordinate's location itself'
         """
-        return len(self._locations) + 1
+        return len(self.locations) + 1
 
     def add_location(self, point, infinite_location):
-        self._locations[point] = self.distance(point)
+        self.locations[point] = self.distance(point)
         # If infinite is True, set self._infinite to True.
         # If infinite is False, leave self._infinite unchanged.
         # We don't want to clear it after an earlier call set it.

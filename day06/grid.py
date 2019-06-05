@@ -42,15 +42,13 @@ class Grid:
                 f"Grid size error! Size is {self.SIZE}, input is ({point})"
             )
 
+    def all_locations(self):
+        return ((x, y) for x in range(0, self.SIZE) for y in range(0, self.SIZE))
+
     def _empty_locations(self):
         # set comprehension. set is much faster than even a short list when the # of iterations is so large.
         coord_points = {c.point for c in self.coordinates}
-        return (
-            (x, y)
-            for x in range(0, self.SIZE)
-            for y in range(0, self.SIZE)
-            if not (x, y) in coord_points
-        )
+        return ((x, y) for (x, y) in self.all_locations() if not (x, y) in coord_points)
 
     def _find_closest_coordinate(self, point):
         closest_dist = maxsize

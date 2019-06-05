@@ -8,3 +8,4 @@ Advent of Code 2018 in python
 * Day 3 - done
 * Day 4 - done
 * Day 5 - done
+* Day 6 - done. Woohoo!

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from collections import Counter
+
 from coordinate import Coordinate
 from grid import Grid
 
@@ -20,7 +22,12 @@ def part2(file_name):
     What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
     """
     g = _load_and_scan(file_name)
-    pass
+
+    cnt = Counter()
+    for point in g.all_locations():
+        for c in g.coordinates:
+            cnt[point] += c.distance(point)
+    return len([distance for distance in cnt.values() if distance < 10000])
 
 
 def _load_and_scan(file_name):
