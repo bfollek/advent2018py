@@ -13,8 +13,8 @@ def part1(file_name):
     What is the size of the largest area that isn't infinite?
     """
     g = _load_and_scan(file_name)
-    c = g.largest_finite_area()
-    return c.area()
+    c = g.largest_finite_area
+    return c.area
 
 
 def part2(file_name):
@@ -24,7 +24,7 @@ def part2(file_name):
     g = _load_and_scan(file_name)
 
     cnt = Counter()
-    for point in g.all_locations():
+    for point in g.all_locations:
         for c in g.coordinates:
             cnt[point] += c.distance(point)
     return len([distance for distance in cnt.values() if distance < 10000])

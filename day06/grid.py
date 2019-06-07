@@ -19,9 +19,10 @@ class Grid:
         return c
 
     def scan(self):
-        for point in self._empty_locations():
+        for point in self._empty_locations:
             self._find_closest_coordinate(point)
 
+    @property
     def largest_finite_area(self):
         """
         Find the coordinate with the largest finite area.
@@ -31,8 +32,8 @@ class Grid:
         for c in self.coordinates:
             if c.infinite:
                 continue
-            if c.area() > largest_area:
-                largest_area = c.area()
+            if c.area > largest_area:
+                largest_area = c.area
                 largest_coord = c
         return largest_coord
 
@@ -42,13 +43,15 @@ class Grid:
                 f"Grid size error! Size is {self.SIZE}, input is ({point})"
             )
 
+    @property
     def all_locations(self):
         return ((x, y) for x in range(0, self.SIZE) for y in range(0, self.SIZE))
 
+    @property
     def _empty_locations(self):
         # set comprehension. set is much faster than even a short list when the # of iterations is so large.
         coord_points = {c.point for c in self.coordinates}
-        return ((x, y) for (x, y) in self.all_locations() if not (x, y) in coord_points)
+        return ((x, y) for (x, y) in self.all_locations if not (x, y) in coord_points)
 
     def _find_closest_coordinate(self, point):
         closest_dist = maxsize

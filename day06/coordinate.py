@@ -16,6 +16,7 @@ class Coordinate:
         """
         return abs(self.point[0] - point[0]) + abs(self.point[1] - point[1])
 
+    @property
     def area(self):
         """
         '...including the coordinate's location itself'

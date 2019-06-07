@@ -16,6 +16,7 @@ class Claim:
     # #14 @ 690,863: 12x20
     CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
+    # @property didn't mesh well with @lru_cache - broke cache_info()
     # Large cache makes things faster. Jump to 4096 didn't help.
     @lru_cache(maxsize=2048)
     def sq_inches(self: "Claim") -> Tuple[int, int]:

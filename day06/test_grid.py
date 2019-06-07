@@ -28,8 +28,8 @@ def test_add_coordinate():
 
 def test_empty_locations():
     g = make_grid()
-    assert A not in g._empty_locations()
-    assert C not in g._empty_locations()
-    assert E not in g._empty_locations()
-    assert (4, 4) in g._empty_locations()
-    assert (7, 6) in g._empty_locations()
+    assert A not in g._empty_locations
+    assert C not in g._empty_locations
+    assert E not in g._empty_locations
+    assert (4, 4) in g._empty_locations
+    assert (7, 6) in g._empty_locations
