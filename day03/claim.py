@@ -4,7 +4,7 @@ import re
 from typing import Tuple
 
 
-# eq and frozen make Claim hashable, so that we can cache sq_inches().
+# eq and frozen make Claim hashable, so that we can cache _sq_inches().
 @dataclass(eq=True, frozen=True)
 class Claim:
     id: str
@@ -16,10 +16,18 @@ class Claim:
     # #14 @ 690,863: 12x20
     CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
-    # @property didn't mesh well with @lru_cache - broke cache_info()
+    def overlaps(self: "Claim", other: "Claim") -> bool:
+        self_set = set(self.sq_inches)
+        other_set = set(other.sq_inches)
+        return len(self_set & other_set) > 0
+
+    @property
+    def sq_inches(self):
+        return self._sq_inches()
+
     # Large cache makes things faster. Jump to 4096 didn't help.
     @lru_cache(maxsize=2048)
-    def sq_inches(self: "Claim") -> Tuple[int, int]:
+    def _sq_inches(self: "Claim") -> Tuple[int, int]:
         """
         Return a list of (int, int) tuples. Each tuple is a square inch in the claim.
         """
@@ -28,11 +36,6 @@ class Claim:
             for i in range(self._x, self._x + self._width)
             for j in range(self._y, self._y + self._height)
         ]
-
-    def overlaps(self: "Claim", other: "Claim") -> bool:
-        self_set = set(self.sq_inches())
-        other_set = set(other.sq_inches())
-        return len(self_set & other_set) > 0
 
     @classmethod
     def new_from_string(cls, s: str) -> "Claim":

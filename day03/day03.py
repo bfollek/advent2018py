@@ -16,7 +16,7 @@ def part1(file_name):
     d = defaultdict(lambda: 0)
     # Count how many times each square inch appears in a claim
     for claim in claims:
-        for sq_inch in claim.sq_inches():
+        for sq_inch in claim.sq_inches:
             d[sq_inch] += 1
     # Count the # of values in d that are > 1
     return len([v for v in d.values() if v > 1])
@@ -64,7 +64,7 @@ def part2_v2(file_name):
     # and a list of the claim ID's that have the claims.
     for claim in claims:
         d_claim_ids[claim.id] = True
-        for sq_inch in claim.sq_inches():
+        for sq_inch in claim.sq_inches:
             d_sq_inches[sq_inch].append(claim.id)
     # Now for all square inches with more than one claim,
     # flip d_claim_ids_no_overlap to False.
@@ -98,7 +98,7 @@ def part2_v3(file_name):
     # and a list of the claim ID's that have the claims.
     for claim in claims:
         set_claim_ids.add(claim.id)
-        for sq_inch in claim.sq_inches():
+        for sq_inch in claim.sq_inches:
             d_sq_inches[sq_inch].append(claim.id)
     # Now for all square inches with more than one claim,
     # discard the claim ID's from set_claim_ids.
