@@ -51,11 +51,10 @@ def _determine_order(dg):
         ready_to_run = []
         for step in dg.vertices:
             if step in completed:
-                pass
-            else:
-                dependencies = set(dg.neighbors_for_vertex(step))
-                if dependencies.issubset(set(completed)):
-                    ready_to_run.append(step)
+                continue
+            dependencies = set(dg.neighbors_for_vertex(step))
+            if dependencies.issubset(set(completed)):
+                ready_to_run.append(step)
         if ready_to_run:
             # If multiple steps are ready to run, choose whichever is first in alpha order.
             next = sorted(ready_to_run)[0]
