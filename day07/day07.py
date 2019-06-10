@@ -43,7 +43,8 @@ def _determine_order(dg):
     """
     If more than one step is ready, choose the step which is first alphabetically.
     """
-    completed = []
+    # Dictionary because a set doesn't preserve key order.
+    completed = {}
     # A vertex == a step. Loop till all steps are completed.
     while len(completed) < dg.vertex_count:
         # Find all steps that are ready to run because their dependencies have completed.
@@ -56,7 +57,7 @@ def _determine_order(dg):
                 if dependencies.issubset(set(completed)):
                     ready_to_run.append(step)
         if ready_to_run:
-            # If multiple steps are ready to run, choose whichever is first in alpha order
+            # If multiple steps are ready to run, choose whichever is first in alpha order.
             next = sorted(ready_to_run)[0]
-            completed.append(next)
+            completed[next] = True
     return completed
