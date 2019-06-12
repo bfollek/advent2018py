@@ -18,7 +18,7 @@ def part1(file_name):
     for line in lines:
         _add_line_to_graph(line, dg)
     # dg.dump()
-    order = _determine_order(dg)
+    order = _determine_part1_order(dg)
     return "".join(order)
 
 
@@ -44,7 +44,7 @@ def _add_line_to_graph(line, dg):
         raise ValueError(f"Can't parse [{line}]")
 
 
-def _determine_order(dg):
+def _determine_part1_order(dg):
     """
     If more than one step is ready, choose the step which is first alphabetically.
     """
