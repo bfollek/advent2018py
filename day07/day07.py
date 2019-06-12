@@ -3,6 +3,7 @@
 import re
 
 from data_structures.simple_graph.graph import Digraph, Edge
+from step import Step
 
 # Step P must be finished before step O can begin.
 STEP_REGEX = re.compile(r"Step (.*) must be finished before step (.*) can begin.")
@@ -18,8 +19,8 @@ def part1(file_name):
     for line in lines:
         _add_line_to_graph(line, dg)
     # dg.dump()
-    order = _determine_part1_order(dg)
-    return "".join(order)
+    steps = _determine_part1_order(dg)
+    return "".join([st.name for st in steps])
 
 
 def part2(file_name):
@@ -34,7 +35,7 @@ def part2(file_name):
 def _add_line_to_graph(line, dg):
     m = re.search(STEP_REGEX, line)
     if m:
-        step1, step2 = m.group(1, 2)
+        step1, step2 = map(Step, m.group(1, 2))
         for v in [step1, step2]:
             if v not in dg.vertices:
                 dg.add_vertex(v)
