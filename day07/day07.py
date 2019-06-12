@@ -23,6 +23,11 @@ def part1(file_name):
 
 
 def part2(file_name):
+    # increment a clock
+    # check the clock to see if a step is done
+    # when starting new steps
+    #   consider # of elves
+    #   dict of step/start_time
     pass
 
 
