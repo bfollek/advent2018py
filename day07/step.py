@@ -35,7 +35,8 @@ class Step:
 class TimedStep(Step):
     def start(self, time_now):
         """
-        Each step takes 60 seconds plus an amount corresponding to its letter: A=1, B=2, C=3, and so on. So, step A takes 60+1=61 seconds, while step Z takes 60+26=86 seconds. No time is required between steps.
+        Each step takes 60 seconds plus an amount corresponding to its letter: A=1, B=2, C=3, and so on.
+        So, step A takes 60+1=61 seconds, while step Z takes 60+26=86 seconds. No time is required between steps.
         """
         self._completion_time = ord(self.name) - ord("A") + 61 + time_now
 
