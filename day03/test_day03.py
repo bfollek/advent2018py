@@ -3,11 +3,11 @@ from claim import Claim
 
 
 def test_part1():
-    assert part1("day03/day03.txt") == 109716
+    assert part1("day03/day03.dat") == 109716
 
 
 def test_part2():
-    assert part2("day03/day03.txt") == "124"
+    assert part2("day03/day03.dat") == "124"
     print(Claim._sq_inches.cache_info())  # pytest -s to see this
 
 

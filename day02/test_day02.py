@@ -2,11 +2,11 @@ from day02 import part1, part2, _check_chars, _diff_by_1
 
 
 def test_part1():
-    assert part1("day02/day02.txt") == 8715
+    assert part1("day02/day02.dat") == 8715
 
 
 def test_part2():
-    assert part2("day02/day02.txt") == "fvstwblgqkhpuixdrnevmaycd"
+    assert part2("day02/day02.dat") == "fvstwblgqkhpuixdrnevmaycd"
 
 
 def test_check_chars():
