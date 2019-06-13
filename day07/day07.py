@@ -19,17 +19,21 @@ def part1(file_name):
     for line in lines:
         _add_line_to_graph(line, dg)
     # dg.dump()
-    steps = _determine_part1_order(dg)
+    steps = _order(dg)
     return "".join([st.name for st in steps])
 
 
 def part2(file_name):
-    # increment a clock
-    # check the clock to see if a step is done
-    # when starting new steps
-    #   consider # of elves
-    #   dict of step/start_time
-    pass
+    """
+    With 5 workers and the 60+ second step durations described above,
+    how long will it take to complete all of the steps?
+    """
+    dg = Digraph()
+    with open(file_name) as f:
+        lines = [line.rstrip() for line in f]
+    for line in lines:
+        _add_line_to_graph(line, dg)
+    return _how_long(dg)
 
 
 def _add_line_to_graph(line, dg):
@@ -45,7 +49,7 @@ def _add_line_to_graph(line, dg):
         raise ValueError(f"Can't parse [{line}]")
 
 
-def _determine_part1_order(dg):
+def _order(dg):
     """
     If more than one step is ready, choose the step which is first alphabetically.
     """
@@ -66,3 +70,12 @@ def _determine_part1_order(dg):
             next = sorted(ready_to_run)[0]
             completed[next] = True
     return completed
+
+
+def _how_long(dg):
+    # increment a clock
+    # check the clock to see if a step is done
+    # when starting new steps
+    #   consider # of elves
+    #   dict of step/start_time
+    return 99999999
