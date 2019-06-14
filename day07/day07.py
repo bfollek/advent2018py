@@ -72,19 +72,12 @@ def _order(dg):
     return completed
 
 
-# I'm getting repeated runs of P, even though it's complete?
 def _how_long(dg, num_workers):
-    # increment a clock
-    # check the clock to see if a step is done
-    # when starting new steps
-    #   consider # of elves
-    #   dict of step/start_time
     clock = 0
     running = set()
     while True:
         runnable = []
         for step in dg.vertices:
-            # todo break this code up
             if step.completed(clock):
                 if step in running:
                     running.remove(step)
@@ -93,17 +86,20 @@ def _how_long(dg, num_workers):
                 dependencies = dg.neighbors_for_vertex(step)
                 if all(d.completed(clock) for d in dependencies):
                     runnable.append(step)
-                # If multiple steps are runnable, run in alpha order.
-                runnable.sort()
-            # todo more elegant way to handle this rather than i?
-            i = 0
-            while len(running) < num_workers and i < len(runnable):
-                nxt = runnable[i]
-                nxt.start(clock)
-                running.add(nxt)
-                i += 1
+            _run_steps(runnable, running, num_workers, clock)
         # If nothing's running, we're done
         if not running:
             break
         clock += 1
     return clock
+
+
+def _run_steps(runnable, running, num_workers, clock):
+    # If multiple steps are runnable, run in alpha order.
+    runnable.sort()
+    i = 0
+    while len(running) < num_workers and i < len(runnable):
+        nxt = runnable[i]
+        nxt.start(clock)
+        running.add(nxt)
+        i += 1
