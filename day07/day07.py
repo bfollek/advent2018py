@@ -5,7 +5,7 @@ import re
 from data_structures.simple_graph.graph import Digraph, Edge
 from step import Step, TimedStep
 
-# Step P must be finished before step O can begin.
+# e.g., "Step P must be finished before step O can begin."
 STEP_REGEX = re.compile(r"Step (.*) must be finished before step (.*) can begin.")
 
 
@@ -79,14 +79,11 @@ def _how_long(dg, num_workers):
         runnable = []
         for step in dg.vertices:
             if step.completed(clock):
-                if step in running:
-                    running.remove(step)
-                continue
-            if step not in running:
-                dependencies = dg.neighbors_for_vertex(step)
-                if all(d.completed(clock) for d in dependencies):
+                running.discard(step)
+            elif step not in running:
+                if _dependencies_are_complete(dg, clock, step):
                     runnable.append(step)
-            _run_steps(runnable, running, num_workers, clock)
+            _run_steps(num_workers, clock, running, runnable)
         # If nothing's running, we're done
         if not running:
             break
@@ -94,12 +91,15 @@ def _how_long(dg, num_workers):
     return clock
 
 
-def _run_steps(runnable, running, num_workers, clock):
+def _dependencies_are_complete(dg, clock, step):
+    dependencies = dg.neighbors_for_vertex(step)
+    return all(d.completed(clock) for d in dependencies)
+
+
+def _run_steps(num_workers, clock, running, runnable):
     # If multiple steps are runnable, run in alpha order.
-    runnable.sort()
-    i = 0
-    while len(running) < num_workers and i < len(runnable):
-        nxt = runnable[i]
-        nxt.start(clock)
-        running.add(nxt)
-        i += 1
+    for step in sorted(runnable):
+        if len(running) == num_workers:
+            break
+        step.start(clock)
+        running.add(step)
