@@ -3,7 +3,7 @@
 import re
 
 from data_structures.simple_graph.graph import Digraph, Edge
-from step import Step
+from step import Step, TimedStep
 
 # Step P must be finished before step O can begin.
 STEP_REGEX = re.compile(r"Step (.*) must be finished before step (.*) can begin.")
@@ -17,29 +17,29 @@ def part1(file_name):
     with open(file_name) as f:
         lines = [line.rstrip() for line in f]
     for line in lines:
-        _add_line_to_graph(line, dg)
+        _add_step_to_graph(line, dg, Step)
     # dg.dump()
     steps = _order(dg)
     return "".join([st.name for st in steps])
 
 
-def part2(file_name):
+def part2(file_name, num_workers):
     """
-    With 5 workers and the 60+ second step durations described above,
+    With 5 workers and the 60+ second step durations (see spec.txt),
     how long will it take to complete all of the steps?
     """
     dg = Digraph()
     with open(file_name) as f:
         lines = [line.rstrip() for line in f]
     for line in lines:
-        _add_line_to_graph(line, dg)
-    return _how_long(dg)
+        _add_step_to_graph(line, dg, TimedStep)
+    return _how_long(dg, num_workers)
 
 
-def _add_line_to_graph(line, dg):
+def _add_step_to_graph(line, dg, klass):
     m = re.search(STEP_REGEX, line)
     if m:
-        step1, step2 = map(Step, m.group(1, 2))
+        step1, step2 = map(klass, m.group(1, 2))
         for v in [step1, step2]:
             if v not in dg.vertices:
                 dg.add_vertex(v)
@@ -57,25 +57,53 @@ def _order(dg):
     completed = {}
     # A vertex == a step. Loop till all steps are completed.
     while len(completed) < dg.vertex_count:
-        # Find all steps that are ready to run because their dependencies have completed.
-        ready_to_run = []
+        # Find all steps that are runnable because their dependencies have completed.
+        runnable = []
         for step in dg.vertices:
             if step in completed:
                 continue
             dependencies = set(dg.neighbors_for_vertex(step))
             if dependencies.issubset(set(completed)):
-                ready_to_run.append(step)
-        if ready_to_run:
+                runnable.append(step)
+        if runnable:
             # If multiple steps are ready to run, choose whichever is first in alpha order.
-            next = sorted(ready_to_run)[0]
+            next = sorted(runnable)[0]
             completed[next] = True
     return completed
 
 
-def _how_long(dg):
+# I'm getting repeated runs of P, even though it's complete?
+def _how_long(dg, num_workers):
     # increment a clock
     # check the clock to see if a step is done
     # when starting new steps
     #   consider # of elves
     #   dict of step/start_time
-    return 99999999
+    clock = 0
+    running = set()
+    while True:
+        runnable = []
+        for step in dg.vertices:
+            # todo break this code up
+            if step.completed(clock):
+                if step in running:
+                    running.remove(step)
+                continue
+            if step not in running:
+                dependencies = dg.neighbors_for_vertex(step)
+                if all(d.completed(clock) for d in dependencies):
+                    runnable.append(step)
+                # If multiple steps are runnable, run in alpha order.
+                runnable.sort()
+            # todo more elegant way to handle this rather than i?
+            i = 0
+            while len(running) < num_workers and i < len(runnable):
+                nxt = runnable[i]
+                nxt.start(clock)
+                running.add(nxt)
+                i += 1
+        # If nothing's running, we're done
+        if not running:
+            break
+        clock += 1
+    return clock

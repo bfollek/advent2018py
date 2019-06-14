@@ -1,4 +1,5 @@
 from functools import total_ordering
+import sys
 
 
 @total_ordering
@@ -23,16 +24,20 @@ class Step:
 
     def __hash__(self):
         """For dicts and sets."""
-        return hash(repr(self))
+        return hash(self.name)
 
     def __repr__(self):
-        return f'Step(name="{self.name}")'
+        return f'{type(self).__name__}(name="{self.name}")'
 
 
 # -------------------------------------------------------------------
 
 
 class TimedStep(Step):
+    def __init__(self, name):
+        super().__init__(name)
+        self._time_complete = sys.maxsize  # So that completed() works
+
     def start(self, time_now):
         """
         time_now is an integer.
@@ -44,3 +49,6 @@ class TimedStep(Step):
 
     def completed(self, time_now):
         return self._time_complete <= time_now
+
+    def __repr__(self):
+        return f'{type(self).__name__}(name="{self.name}", _time_complete={self._time_complete})'
