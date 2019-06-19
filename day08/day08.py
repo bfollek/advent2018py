@@ -19,7 +19,11 @@ def part1(file_name):
 
 
 def part2(file_name):
-    pass
+    with open(file_name) as f:
+        raw = f.readline().strip()
+    dek = deque(int(s) for s in raw.split(" "))
+    node = _parse_node(dek)
+    return node.value()
 
 
 def _parse_node(data):

@@ -7,5 +7,5 @@ def test_part1():
 
 
 def test_part2():
-    # assert part2("day08/day08.dat") == 0
-    pass
+    assert part2("day08/day08_short.dat") == 66
+    assert part2("day08/day08.dat") == 35189
