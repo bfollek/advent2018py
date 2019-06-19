@@ -15,6 +15,12 @@ class Node:
         self.metadata.append(metadata)
         return self.metadata
 
+    def total_metadata(self):
+        total = sum(self.metadata)
+        for c in self.children:
+            total += c.total_metadata()
+        return total
+
     @classmethod
     def indent(cls, inc=True):
         if inc:

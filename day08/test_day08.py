@@ -2,7 +2,8 @@ from day08 import part1, part2
 
 
 def test_part1():
-    assert part1("day08/day08_short.dat") == 0
+    assert part1("day08/day08_short.dat") == 138
+    assert part1("day08/day08.dat") == 43996
 
 
 def test_part2():

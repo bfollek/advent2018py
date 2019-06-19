@@ -6,12 +6,16 @@ from node import Node
 
 
 def part1(file_name):
+    """
+    What is the sum of all metadata entries?
+    """
     with open(file_name) as f:
         raw = f.readline().strip()
     dek = deque(int(s) for s in raw.split(" "))
     # print(dek)
     node = _parse_node(dek)
-    print(node)
+    # print(node)
+    return node.total_metadata()
 
 
 def part2(file_name):
