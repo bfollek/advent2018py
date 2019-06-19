@@ -22,7 +22,11 @@ class Node:
             total += c.total_metadata
         return total
 
+    @property
     def value(self):
+        return self._value()
+
+    def _value(self):
         """
         If a node has no child nodes, its value is the sum of its metadata entries.
 
@@ -31,7 +35,7 @@ class Node:
         if not self.children:
             return sum(self.metadata)
         valid_children = self._valid_metachildren()
-        return sum(map(Node.value, valid_children))
+        return sum(map(Node._value, valid_children))
 
     def _valid_metachildren(self):
         """

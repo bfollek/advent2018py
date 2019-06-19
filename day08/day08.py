@@ -23,7 +23,7 @@ def part2(file_name):
         raw = f.readline().strip()
     dek = deque(int(s) for s in raw.split(" "))
     node = _parse_node(dek)
-    return node.value()
+    return node.value
 
 
 def _parse_node(data):
