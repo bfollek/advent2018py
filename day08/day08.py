@@ -15,7 +15,7 @@ def part1(file_name):
     # print(dek)
     node = _parse_node(dek)
     # print(node)
-    return node.total_metadata()
+    return node.total_metadata
 
 
 def part2(file_name):
