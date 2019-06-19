@@ -21,11 +21,13 @@ class Node:
 
     def __str__(self):
         Node._num_indents += 1
-        s = f"\n{Node.indent()}Node("
+        s = f"\n{Node.indent()}Node"
         Node._num_indents += 1
+        s += f"\n{Node.indent()}metadata: {self.metadata}"
+
         s += f"\n{Node.indent()}children: "
         for c in self.children:
             s += str(c)
-        s += f"\n{Node.indent()}metadata: {self.metadata})"
+
         Node._num_indents -= 2
         return s
