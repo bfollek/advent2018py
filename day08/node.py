@@ -16,18 +16,25 @@ class Node:
         return self.metadata
 
     @classmethod
-    def indent(cls):
+    def indent(cls, inc=True):
+        if inc:
+            Node._num_indents += 1
         return Node.INDENT * Node._num_indents
 
+    @classmethod
+    def dedent(cls, num=1):
+        Node._num_indents -= num
+        return Node._num_indents
+
     def __str__(self):
-        Node._num_indents += 1
-        s = f"\n{Node.indent()}Node"
-        Node._num_indents += 1
+        s = f"\n{Node.indent()}Node =>"
         s += f"\n{Node.indent()}metadata: {self.metadata}"
-
-        s += f"\n{Node.indent()}children: "
-        for c in self.children:
-            s += str(c)
-
-        Node._num_indents -= 2
+        s += f"\n{Node.indent(False)}children"
+        if len(self.children):
+            s += " =>"
+            for c in self.children:
+                s += str(c)
+        else:
+            s += ": []"
+        Node.dedent(2)
         return s
