@@ -16,13 +16,12 @@ class Node:
         return self.metadata
 
     @classmethod
-    @property
     def indent(cls):
         return Node.INDENT * Node._num_indents
 
     def __str__(self):
         Node._num_indents += 1
-        s = f"\n{Node.indent}Node"
+        s = f"\n{Node.indent()}Node"
         Node._num_indents += 1
         s += f"\n{Node.indent()}metadata: {self.metadata}"
 
