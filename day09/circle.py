@@ -7,11 +7,6 @@ class Circle:
         self._current = 0
 
     def place(self, val):
-        # Special case
-        # if len(self._list) == 1:
-        #     self._list.append(val)
-        #     self._current = 1
-        #     return
         to = self.move(1) + 1
         self._list.insert(to, val)
         self._current = to
@@ -22,8 +17,6 @@ class Circle:
         """
         to = (self._current + n) % len(self._list)
         return to
-        # handle wrapping
-        # return (value, index) tuple
 
     def __getitem__(self, i):
         return self._list[i]
