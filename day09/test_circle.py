@@ -49,6 +49,5 @@ def test_place():
         c = Circle()
         for i in range(1, input + 1):
             c.place(i)
-        # current, list = result
         assert c._current == current
         assert c._list == list
