@@ -45,10 +45,10 @@ def test_init():
 
 
 def test_place():
-    for input, result in PLACE_TESTS.items():
+    for input, (current, list) in PLACE_TESTS.items():
         c = Circle()
         for i in range(1, input + 1):
             c.place(i)
-        current, list = result
+        # current, list = result
         assert c._current == current
         assert c._list == list
