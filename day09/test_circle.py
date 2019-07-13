@@ -41,7 +41,7 @@ PLACE_TESTS = {
 def test_init():
     c = Circle()
     assert c._list == [0]
-    assert c._current == 0
+    assert c.current == 0
 
 
 def test_place():
@@ -49,5 +49,15 @@ def test_place():
         c = Circle()
         for i in range(1, input + 1):
             c.place(i)
-        assert c._current == current
+        assert c.current == current
         assert c._list == list
+
+
+def test_del():
+    c = Circle()
+    for i in range(1, 4):
+        c.place(i)
+    _, list = PLACE_TESTS[3]
+    assert c._list == list
+    del c[2]
+    assert c._list == [0, 2, 3]
