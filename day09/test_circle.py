@@ -1,7 +1,7 @@
 from circle import Circle
 
 PLACE_TESTS = {
-    #  (_current, _list)
+    #  (_current, _data)
     1: (1, [0, 1]),
     2: (1, [0, 2, 1]),
     3: (3, [0, 2, 1, 3]),
@@ -40,7 +40,7 @@ PLACE_TESTS = {
 
 def test_init():
     c = Circle()
-    assert c._list == [0]
+    assert c.data == [0]
     assert c.current == 0
 
 
@@ -50,7 +50,7 @@ def test_place():
         for i in range(1, input + 1):
             c.place(i)
         assert c.current == current
-        assert c._list == list
+        assert c.data == list
 
 
 def test_del():
@@ -58,6 +58,6 @@ def test_del():
     for i in range(1, 4):
         c.place(i)
     _, list = PLACE_TESTS[3]
-    assert c._list == list
+    assert c.data == list
     del c[2]
-    assert c._list == [0, 2, 3]
+    assert c.data == [0, 2, 3]
