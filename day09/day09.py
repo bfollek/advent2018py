@@ -18,6 +18,9 @@ def part1(file_name):
 
 
 def part2(file_name):
+    """
+    What would the new winning Elf's score be if the number of the last marble were 100 times larger?
+    """
     pass
 
 
