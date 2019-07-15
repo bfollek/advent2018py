@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import re
+import time
 
 from circle import Circle
 
@@ -21,16 +22,22 @@ def part2(file_name):
     """
     What would the new winning Elf's score be if the number of the last marble were 100 times larger?
     """
+    # >>> max(day09._play_game(468, 7184300))
+    # Seconds used: 2191.6613047122955
+    # 3156297594
     pass
 
 
 def _play_game(num_elves, last_marble):
+    start_time = time.time()
     circle = Circle()
     elf_num = 0
     scores = [0] * num_elves
     for marble_num in range(1, last_marble + 1):
         elf_num = (elf_num + 1) % num_elves
         _move(marble_num, elf_num, circle, scores)
+    seconds_used = time.time() - start_time
+    print(f"Seconds used: {seconds_used}")
     return scores
 
 

@@ -6,7 +6,7 @@ class Circle:
         """
         First, the marble numbered 0 is placed in the circle... This marble is designated the current marble.
         """
-        self._data = array("L", [0])
+        self._data = array("I", [0])
         self.current = 0
 
     def place(self, val):
