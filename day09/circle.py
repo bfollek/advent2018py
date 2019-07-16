@@ -1,4 +1,7 @@
-from array import array
+from data_structures.circular_doubly_linked_list.cdll import (
+    CircularDoublyLinkedList,
+    Node,
+)
 
 
 class Circle:
@@ -6,26 +9,35 @@ class Circle:
         """
         First, the marble numbered 0 is placed in the circle... This marble is designated the current marble.
         """
-        self._data = array("I", [0])
-        self.current = 0
-
-    def place(self, val):
-        to, _ = self.move(1)
-        to += 1
-        self._data.insert(to, val)
-        self.current = to
+        self._data = CircularDoublyLinkedList()
+        node = Node(0)
+        self._data.insert_at_beg(node)
+        self.current = node
 
     def move(self, n):
         """
         Move n positions around the circle. n can be positive (clockwise) or negative (counter-clockwise).
-        Return a tuple of the new position and the value there.
+        Return the node at the new position.
         """
-        pos = (self.current + n) % len(self._data)
-        return (pos, self._data[pos])
+        node = self.current
+        while n:
+            if n > 0:
+                node = node.next
+                n -= 1
+            else:
+                node = node.prev
+                n += 1
+        return node
+
+    def place(self, val):
+        node = Node(val)
+        to = self.move(1)
+        self._data.insert_after(to, node)
+        self.current = node
 
     @property
     def data(self):
-        return self._data.tolist()
+        return self._data.to_list()
 
     @property
     def current(self):
@@ -35,8 +47,9 @@ class Circle:
     def current(self, value):
         self._current = value
 
-    def __delitem__(self, i):
-        del self._data[i]
+    def __delete__(self, node):
+        self._current = node.next
+        self._data.remove(node)
 
     def __repr__(self):
-        return f"Circle({repr(self._data)}, current index: {self.current})"
+        return f"Circle({repr(self._data)}, current node: {self.current.data})"
