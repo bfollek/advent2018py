@@ -22,10 +22,11 @@ def part2(file_name):
     """
     What would the new winning Elf's score be if the number of the last marble were 100 times larger?
     """
-    # >>> max(day09._play_game(468, 7184300))
-    # Seconds used: 2191.6613047122955
-    # 3156297594
-    pass
+    # Seconds used: 17.370980978012085
+    # Seconds used with an array: 2191.6613047122955
+    num_elves, last_marble = map(int, _parse_game(file_name))
+    scores = _play_game(num_elves, last_marble * 100)
+    return max(scores)
 
 
 def _play_game(num_elves, last_marble):
@@ -60,11 +61,10 @@ def _handle_winner(marble_num, elf_num, circle, scores):
     First, the current player keeps the marble they would have placed, adding it to their score. In addition, the marble 7 marbles counter-clockwise from the current marble is removed from the circle and also added to the current player's score. The marble located immediately clockwise of the marble that was removed becomes the new current marble.
     """
     scores[elf_num] += marble_num
-    remove_index, remove_value = circle.move(-7)
-    scores[elf_num] += remove_value
-    del circle[remove_index]
-    # Because of deletion, remove_index is now the index immediately clockwise to itself
-    circle.current = remove_index
+    marble = circle.move(-7)
+    scores[elf_num] += marble.data
+    circle.remove(marble)
+    circle.current = marble.next
 
 
 def _parse_game(file_name):

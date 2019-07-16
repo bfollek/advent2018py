@@ -36,7 +36,7 @@ PLACE_TESTS = {
 
 def test_init():
     c = Circle()
-    assert c.data == [0]
+    assert c._data.to_list() == [0]
     assert c.current.data == 0
 
 
@@ -46,7 +46,7 @@ def test_place():
         for i in range(1, input + 1):
             c.place(i)
         assert c.current.data == input
-        assert c.data == lst
+        assert c._data.to_list() == lst
 
 
 def test_del():
@@ -55,7 +55,7 @@ def test_del():
         c.place(i)
     lst = PLACE_TESTS[3]
     assert c.current.data == 3
-    assert c.data == lst
+    assert c._data.to_list() == lst
     c.remove(c.current)
     assert c.current.data == 0
-    assert c.data == [0, 2, 1]
+    assert c._data.to_list() == [0, 2, 1]

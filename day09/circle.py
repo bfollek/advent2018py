@@ -36,10 +36,6 @@ class Circle:
         self.current = node
 
     @property
-    def data(self):
-        return self._data.to_list()
-
-    @property
     def current(self):
         return self._current
 
