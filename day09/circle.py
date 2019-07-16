@@ -47,9 +47,14 @@ class Circle:
     def current(self, value):
         self._current = value
 
-    def __delete__(self, node):
-        self._current = node.next
+    def remove(self, node):
         self._data.remove(node)
+        # Make sure current stays valid.
+        # Did we remove the only node, or the current node?
+        if self._data.first == None:
+            self.current = None
+        elif self.current == node:
+            self.current = node.next
 
     def __repr__(self):
-        return f"Circle({repr(self._data)}, current node: {self.current.data})"
+        return f"Circle(data: {repr(self._data)}, current node: {self.current.data})"
