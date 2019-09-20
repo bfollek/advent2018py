@@ -3,11 +3,11 @@ Advent of Code 2018 in python
 
 #### Status
 
-* Day 1 - done.
+* Day 1 - done. Typed.
 
-* Day 2 - done.
+* Day 2 - done. Typed.
 
-* Day 3 - done.
+* Day 3 - done. Typed.
 
 * Day 4 - done.
 
@@ -20,3 +20,5 @@ Advent of Code 2018 in python
 * Day 8 - done.
 
 * Day 9 - done. To run it, you'll need [cdll](https://github.com/bfollek/cdll) on your PYTHONPATH. I took a tip from [reddit](https://www.reddit.com/r/adventofcode/comments/a4j11i/2018_day_9_part_2_strategy_help/) and switched my array to a circular doubly linked list. The cdll was two orders of magnitude faster on part2.
+
+* Day 10 - not yet.

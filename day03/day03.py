@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
+from typing import DefaultDict, Tuple
 
 from claim import Claim
 
 NOT_FOUND = "Could not find claim that doesn't overlap any other claim."
 
 
-def part1(file_name):
+def part1(file_name: str):
     """
     How many square inches of fabric are within two or more claims?
     """
     with open(file_name) as f:
         claims = [Claim.new_from_string(line.rstrip()) for line in f]
-    d = defaultdict(lambda: 0)
+    d: DefaultDict[Tuple[int, int], int] = defaultdict(lambda: 0)
     # Count how many times each square inch appears in a claim
     for claim in claims:
         for sq_inch in claim.sq_inches:
@@ -22,7 +23,7 @@ def part1(file_name):
     return len([v for v in d.values() if v > 1])
 
 
-def part2(file_name):
+def part2(file_name: str):
     return part2_v2(file_name)
 
 

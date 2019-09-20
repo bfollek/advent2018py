@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
+from typing import DefaultDict, Optional, Tuple
 
 
-def part1(file_name):
+def part1(file_name: str) -> int:
     """
     Calculate the checksum.
 
@@ -24,7 +25,7 @@ def part1(file_name):
     return count_2 * count_3
 
 
-def part2(file_name):
+def part2(file_name: str) -> Optional[str]:
     """
     Find the 2 id's that differ by just 1 char, and return their common chars.
     """
@@ -37,21 +38,22 @@ def part2(file_name):
                 b, common_chars = _diff_by_1(id1, id2)
                 if b:
                     return common_chars
+    assert False  # Make mypy happy
 
 
-def _check_chars(id):
+def _check_chars(id: str) -> Tuple[bool, bool]:
     """
     Return a tuple of two booleans. The first is True if any char in id occurs twice.
     The second is True if any char occurs three times.
     """
-    d = defaultdict(lambda: 0)
+    d: DefaultDict[str, int] = defaultdict(lambda: 0)
     for c in id:
         d[c] += 1
     counts = d.values()
     return 2 in counts, 3 in counts
 
 
-def _diff_by_1(id1, id2):
+def _diff_by_1(id1: str, id2: str) -> Tuple[bool, Optional[str]]:
     """
     Return a tuple (boolean, string). If the boolean is True,
     the string is the chars that id1 and id2 have in common.

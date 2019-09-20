@@ -3,7 +3,7 @@
 from itertools import cycle
 
 
-def part1(file_name):
+def part1(file_name: str) -> int:
     """
     Find the total of the frequencies.
     """
@@ -12,7 +12,7 @@ def part1(file_name):
     return sum(freqs)
 
 
-def part2(file_name):
+def part2(file_name: str) -> int:
     """
     Keep a running total, and find the first value that repeats.
     """
@@ -28,3 +28,4 @@ def part2(file_name):
             return total
         else:
             seen.add(total)
+    assert False  # Make mypy happy
