@@ -29,7 +29,7 @@ class Claim:
     @lru_cache(maxsize=2048)
     def _sq_inches(self: "Claim") -> List[Tuple[int, int]]:
         """
-        Return a list of (int, int) tuples. Each tuple is a square inch in the claim.
+        Returns a list of the square inches in the claim.
         """
         return [
             (i, j)

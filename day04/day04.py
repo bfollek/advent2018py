@@ -3,11 +3,12 @@
 from array import array
 from collections import defaultdict
 import re
+from typing import DefaultDict, List
 
 from nap import Nap
 
 
-def part1(file_name):
+def part1(file_name: str) -> int:
     """
     Strategy 1: Find the guard that has the most minutes asleep. What minute does that guard spend asleep the most?
 
@@ -27,7 +28,7 @@ def part1(file_name):
     return int(most_id) * minutes.index(max(minutes))
 
 
-def part2(file_name):
+def part2(file_name: str) -> int:
     """
     Strategy 2: Of all guards, which guard is most frequently asleep on the same minute?
 
@@ -54,7 +55,7 @@ FALLS_ASLEEP_REGEX = re.compile(r".*:(\d+)] falls asleep")
 WAKES_UP_REGEX = re.compile(r".*:(\d+)] wakes up")
 
 
-def _file_to_naps(file_name):
+def _file_to_naps(file_name: str) -> List[Nap]:
     with open(file_name) as f:
         lines = sorted([line.rstrip() for line in f])
     naps = []
@@ -76,9 +77,9 @@ def _file_to_naps(file_name):
     return naps
 
 
-def _map_naps(naps):
+def _map_naps(naps: List[Nap]) -> DefaultDict[str, array]:
     # Default value is an array of 60 zeros, a counter for each minute in the hour
-    map = defaultdict(lambda: array("B", [0] * 60))
+    map: DefaultDict[str, array] = defaultdict(lambda: array("B", [0] * 60))
     for nap in naps:
         # For each minute the guard napped, increment the counter
         for i in range(nap.asleep, nap.awake):

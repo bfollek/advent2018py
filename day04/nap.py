@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import Union
+from typing import Optional
 
 
 @dataclass()
 class Nap:
     id: str
     asleep: int
-    awake: Union[int, None] = None
+    awake: int = -1

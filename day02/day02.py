@@ -43,7 +43,7 @@ def part2(file_name: str) -> Optional[str]:
 
 def _check_chars(id: str) -> Tuple[bool, bool]:
     """
-    Return a tuple of two booleans. The first is True if any char in id occurs twice.
+    The first bool is True if any char in id occurs twice.
     The second is True if any char occurs three times.
     """
     d: DefaultDict[str, int] = defaultdict(lambda: 0)
@@ -55,8 +55,8 @@ def _check_chars(id: str) -> Tuple[bool, bool]:
 
 def _diff_by_1(id1: str, id2: str) -> Tuple[bool, Optional[str]]:
     """
-    Return a tuple (boolean, string). If the boolean is True,
-    the string is the chars that id1 and id2 have in common.
+    If the boolean is True, the string is the chars
+    that id1 and id2 have in common.
     """
     if len(id1) != len(id2):
         return False, None
