@@ -6,4 +6,4 @@ from typing import Optional
 class Nap:
     id: str
     asleep: int
-    awake: int = -1
+    awake: Optional[int] = None

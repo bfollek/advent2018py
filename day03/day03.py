@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
-from typing import DefaultDict, Tuple
+from typing import DefaultDict, List, Tuple
 
 from claim import Claim
 
 NOT_FOUND = "Could not find claim that doesn't overlap any other claim."
 
 
-def part1(file_name: str):
+def part1(file_name: str) -> int:
     """
     How many square inches of fabric are within two or more claims?
     """
@@ -23,11 +23,11 @@ def part1(file_name: str):
     return len([v for v in d.values() if v > 1])
 
 
-def part2(file_name: str):
+def part2(file_name: str) -> str:
     return part2_v2(file_name)
 
 
-def part2_v1(file_name):
+def part2_v1(file_name: str) -> str:
     """
     Find the one claim that doesn't overlap any other claim. Return its id.
     """
@@ -36,10 +36,10 @@ def part2_v1(file_name):
     for claim in claims:
         if _no_overlap(claim, claims):
             return claim.id
-    raise NOT_FOUND
+    raise Exception(NOT_FOUND)
 
 
-def _no_overlap(claim, claims):
+def _no_overlap(claim: Claim, claims: List[Claim]) -> bool:
     for other in claims:
         if claim == other:
             continue
@@ -48,7 +48,7 @@ def _no_overlap(claim, claims):
     return True
 
 
-def part2_v2(file_name):
+def part2_v2(file_name: str) -> str:
     """
     Find the one claim that doesn't overlap any other claim. Return its id.
 
@@ -59,7 +59,7 @@ def part2_v2(file_name):
     # Each key is a claim ID. Each value is a bool.
     d_claim_ids = {}
     # Each key is a sq inch tuple. Each value is a list of claim ID's.
-    d_sq_inches = defaultdict(list)
+    d_sq_inches: DefaultDict[Tuple[int, int], List[str]] = defaultdict(list)
     # Load both dictionaries. d_claim_ids will end up with all claim ID's.
     # d_sq_inches will end up with all square inches that have claims on them,
     # and a list of the claim ID's that have the claims.
@@ -77,10 +77,10 @@ def part2_v2(file_name):
     for claim_id, b in d_claim_ids.items():
         if b:
             return claim_id
-    raise NOT_FOUND
+    raise Exception(NOT_FOUND)
 
 
-def part2_v3(file_name):
+def part2_v3(file_name: str) -> str:
     """
     Find the one claim that doesn't overlap any other claim. Return its id.
 
@@ -93,7 +93,7 @@ def part2_v3(file_name):
     # Each value is a claim ID.
     set_claim_ids = set()
     # Each key is a sq inch tuple. Each value is a list of claim ID's.
-    d_sq_inches = defaultdict(list)
+    d_sq_inches: DefaultDict[Tuple[int, int], List[str]] = defaultdict(list)
     # set_claim_ids will end up with all claim ID's.
     # d_sq_inches will end up with all square inches that have claims on them,
     # and a list of the claim ID's that have the claims.

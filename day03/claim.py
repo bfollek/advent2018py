@@ -16,18 +16,18 @@ class Claim:
     # #14 @ 690,863: 12x20
     CLAIM_REGEX = re.compile(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)")
 
-    def overlaps(self: "Claim", other: "Claim") -> bool:
+    def overlaps(self, other: "Claim") -> bool:
         self_set = set(self.sq_inches)
         other_set = set(other.sq_inches)
         return len(self_set & other_set) > 0
 
     @property
-    def sq_inches(self: "Claim") -> List[Tuple[int, int]]:
+    def sq_inches(self) -> List[Tuple[int, int]]:
         return self._sq_inches()
 
     # Large cache makes things faster. Jump to 4096 didn't help.
     @lru_cache(maxsize=2048)
-    def _sq_inches(self: "Claim") -> List[Tuple[int, int]]:
+    def _sq_inches(self) -> List[Tuple[int, int]]:
         """
         Returns a list of the square inches in the claim.
         """
@@ -38,7 +38,7 @@ class Claim:
         ]
 
     @classmethod
-    def new_from_string(cls: Type["Claim"], s: str) -> "Claim":
+    def new_from_string(cls, s: str) -> "Claim":
         m = re.search(cls.CLAIM_REGEX, s)
         if not m:
             raise Exception(f"Can't create Claim: can't parse string [{s}]")

@@ -82,6 +82,9 @@ def _map_naps(naps: List[Nap]) -> DefaultDict[str, array]:
     map: DefaultDict[str, array] = defaultdict(lambda: array("B", [0] * 60))
     for nap in naps:
         # For each minute the guard napped, increment the counter
-        for i in range(nap.asleep, nap.awake):
-            map[nap.id][i] += 1
+        if nap.awake:
+            for i in range(nap.asleep, nap.awake):
+                map[nap.id][i] += 1
+        else:
+            raise Exception(f"No awake value for nap: {nap.id}")
     return map

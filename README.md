@@ -9,7 +9,7 @@ Advent of Code 2018 in python
 
 * Day 3 - done. Typed.
 
-* Day 4 - done.
+* Day 4 - done. Typed.
 
 * Day 5 - done.
 
