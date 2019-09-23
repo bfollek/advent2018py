@@ -38,7 +38,7 @@ def part2(file_name: str) -> Optional[str]:
                 b, common_chars = _diff_by_1(id1, id2)
                 if b:
                     return common_chars
-    assert False  # Make mypy happy
+    return None
 
 
 def _check_chars(id: str) -> Tuple[bool, bool]:
