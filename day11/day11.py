@@ -3,12 +3,12 @@
 from math import floor
 
 
-def part1(file_name):
-    pass
+def part1(grid_serial_num):
+    return 0
 
 
-def part2(file_name):
-    pass
+def part2(grid_serial_num):
+    return 0
 
 
 def _cell_power_level(grid_serial_num, x, y: int) -> int:

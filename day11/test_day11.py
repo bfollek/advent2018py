@@ -1,14 +1,14 @@
 from day11 import part1, part2, _cell_power_level
 
+GRID_SERIAL_NUM = 5719
+
 
 def test_part1():
-    # assert part1("day10/day10.dat") == 0
-    pass
+    assert part1(GRID_SERIAL_NUM) == 0
 
 
 def test_part2():
-    # assert part2("day10/day10.dat") == 0
-    pass
+    assert part2(GRID_SERIAL_NUM) == 0
 
 
 def test_cell_power_level():
