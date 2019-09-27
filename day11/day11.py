@@ -32,7 +32,7 @@ def _total_power(grid_serial_num, x, y: int) -> int:
         for j in range(y, y + 3):
             cpl = _cell_power_level(grid_serial_num, i, j)
             tp += cpl
-            print(f"i: {i}, j: {j}, cpl: {cpl}, tp: {tp}")
+            # print(f"i: {i}, j: {j}, cpl: {cpl}, tp: {tp}")
     return tp
 
 

@@ -5,9 +5,9 @@ GRID_SERIAL_NUM = 5719
 
 def test_part1():
     d = part1(GRID_SERIAL_NUM)
-    # assert d["x"] == 5
-    # assert d["y"] == 6
-    pass
+    assert d["total"] == 29
+    assert d["x"] == 21
+    assert d["y"] == 34
 
 
 def test_part2():
