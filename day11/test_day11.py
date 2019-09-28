@@ -16,8 +16,8 @@ def test_part2():
 
 
 def test_total_power():
-    assert _total_power(18, 33, 45) == 29
-    assert _total_power(42, 21, 61) == 30
+    assert _total_power(18, 3, 33, 45) == 29
+    assert _total_power(42, 3, 21, 61) == 30
 
 
 def test_cell_power_level():
