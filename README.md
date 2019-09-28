@@ -23,4 +23,4 @@ Advent of Code 2018 in python
 
 * Day 10 - not yet.
 
-* Day 11 - part done. Typed.
+* Day 11 - part1 done. Typed.
