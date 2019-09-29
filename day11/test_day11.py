@@ -11,8 +11,11 @@ def test_part1():
 
 
 def test_part2():
-    # assert day11.part2(GRID_SERIAL_NUM) == 0
-    pass
+    d = day11.part2(GRID_SERIAL_NUM)
+    assert d["total"] == 124
+    assert d["x"] == 90
+    assert d["y"] == 244
+    assert d["grid size"] == 16
 
 
 def test_total_power():

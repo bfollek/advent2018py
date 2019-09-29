@@ -10,13 +10,15 @@ LAST_CELL = 300
 
 def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
     ary = _create_array(grid_serial_num)
-    max_total = -1
+    max_total = None
     max_x = None
     max_y = None
-    for x in range(1, LAST_CELL + 1):
-        for y in range(1, LAST_CELL + 1):
+    for x in range(ary[0].size):
+        for y in range(ary[0].size):
             tp = _total_power(ary, 3, x, y)
-            if tp > max_total:
+            if max_total is None:
+                max_total = tp
+            elif tp and tp > max_total:
                 max_total = tp
                 max_x = x
                 max_y = y
@@ -25,15 +27,18 @@ def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
 
 def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
     ary = _create_array(grid_serial_num)
-    max_total = -1
+    max_total = None
     best_grid_size = None
     max_x = None
     max_y = None
-    for x in range(1, LAST_CELL + 1):
-        for y in range(1, LAST_CELL + 1):
+    for x in range(ary[0].size):
+        for y in range(ary[0].size):
+            # Test squares from 1X1 to 300X300
             for grid_size in range(1, LAST_CELL + 1):
                 tp = _total_power(ary, grid_size, x, y)
-                if tp > max_total:
+                if max_total is None:
+                    max_total = tp
+                elif tp and tp > max_total:
                     max_total = tp
                     max_x = x
                     max_y = y
@@ -41,7 +46,13 @@ def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
     return {"total": max_total, "x": max_x, "y": max_y, "grid size": best_grid_size}
 
 
-def _total_power(ary: np.ndarray, grid_size, x, y: int) -> int:
+def _total_power(ary: np.ndarray, grid_size, x, y: int) -> Optional[int]:
+    # Bounds-check. A slice handles rogue indices automatically, but we
+    # don't want to inadvertently return unreliable results in those cases.
+    if grid_size + x >= ary[0].size:
+        return None
+    if grid_size + y >= ary[0].size:
+        return None
     grid = ary[x : x + grid_size, y : y + grid_size]
     return grid.sum()
 
