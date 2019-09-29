@@ -21,8 +21,21 @@ def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
     return {"total": max_total, "x": max_x, "y": max_y}
 
 
-def part2(grid_serial_num: int) -> int:
-    return 0
+def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
+    max_total = -1
+    best_grid_size = None
+    max_x = None
+    max_y = None
+    for x in range(1, LAST_CELL + 1):
+        for y in range(1, LAST_CELL + 1):
+            for grid_size in range(1, LAST_CELL + 1):
+                tp = _total_power(grid_serial_num, grid_size, x, y)
+                if tp > max_total:
+                    max_total = tp
+                    max_x = x
+                    max_y = y
+                    best_grid_size = grid_size
+    return {"total": max_total, "x": max_x, "y": max_y, "grid size": best_grid_size}
 
 
 def _total_power(grid_serial_num, grid_size, x, y: int) -> int:
@@ -43,6 +56,7 @@ def _cell_power_level(grid_serial_num, x, y: int) -> int:
     """
     Calculate the power level of a fuel cell.
     """
+    # Find the fuel cell's rack ID, which is its X coordinate plus 10.
     rack_id = x + 10
     # Begin with a power level of the rack ID times the Y coordinate.
     power_level = rack_id * y
