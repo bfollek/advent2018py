@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 
 from math import floor
-from typing import Optional, Dict
+from typing import Any, Optional, Dict
+import numpy as np
 
-# Ensure our square is within the 1X300 grid
+# The grid is 1X300
 LAST_CELL = 300
 
 
 def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
+    ary = _create_array(grid_serial_num)
     max_total = -1
     max_x = None
     max_y = None
     for x in range(1, LAST_CELL + 1):
         for y in range(1, LAST_CELL + 1):
-            tp = _total_power(grid_serial_num, 3, x, y)
+            tp = _total_power(ary, 3, x, y)
             if tp > max_total:
                 max_total = tp
                 max_x = x
@@ -22,6 +24,7 @@ def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
 
 
 def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
+    ary = _create_array(grid_serial_num)
     max_total = -1
     best_grid_size = None
     max_x = None
@@ -29,7 +32,7 @@ def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
     for x in range(1, LAST_CELL + 1):
         for y in range(1, LAST_CELL + 1):
             for grid_size in range(1, LAST_CELL + 1):
-                tp = _total_power(grid_serial_num, grid_size, x, y)
+                tp = _total_power(ary, grid_size, x, y)
                 if tp > max_total:
                     max_total = tp
                     max_x = x
@@ -38,18 +41,17 @@ def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
     return {"total": max_total, "x": max_x, "y": max_y, "grid size": best_grid_size}
 
 
-def _total_power(grid_serial_num, grid_size, x, y: int) -> int:
-    tp = 0
-    for i in range(x, x + grid_size):
-        if i > LAST_CELL:
-            break
-        for j in range(y, y + 3):
-            if j > LAST_CELL:
-                continue
-            cpl = _cell_power_level(grid_serial_num, i, j)
-            tp += cpl
-            # print(f"i: {i}, j: {j}, cpl: {cpl}, tp: {tp}")
-    return tp
+def _total_power(ary: np.ndarray, grid_size, x, y: int) -> int:
+    grid = ary[x : x + grid_size, y : y + grid_size]
+    return grid.sum()
+
+
+def _create_array(grid_serial_num: int) -> np.ndarray:
+    cell_power_levels = []
+    for i in range(LAST_CELL):
+        for j in range(LAST_CELL):
+            cell_power_levels.append(_cell_power_level(grid_serial_num, i, j))
+    return np.array(cell_power_levels, dtype=int).reshape(LAST_CELL, LAST_CELL)
 
 
 def _cell_power_level(grid_serial_num, x, y: int) -> int:
