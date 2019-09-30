@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from math import floor
-from typing import Any, Optional, Dict
+from typing import Any, Dict, Optional, Sequence
 import numpy as np
 
 # The grid is 1X300
@@ -9,23 +9,18 @@ LAST_CELL = 300
 
 
 def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
-    ary = _create_array(grid_serial_num)
-    max_total = None
-    max_x = None
-    max_y = None
-    for x in range(ary[0].size):
-        for y in range(ary[0].size):
-            tp = _total_power(ary, 3, x, y)
-            if max_total is None:
-                max_total = tp
-            elif tp and tp > max_total:
-                max_total = tp
-                max_x = x
-                max_y = y
-    return {"total": max_total, "x": max_x, "y": max_y}
+    return _find_best_grid(grid_serial_num, [3])
 
 
 def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
+    # Test squares from 1X1 to 300X300
+    grid_sizes = range(1, LAST_CELL + 1)
+    return _find_best_grid(grid_serial_num, grid_sizes)
+
+
+def _find_best_grid(
+    grid_serial_num: int, grid_sizes: Sequence[int]
+) -> Dict[str, Optional[int]]:
     ary = _create_array(grid_serial_num)
     max_total = None
     best_grid_size = None
@@ -33,8 +28,7 @@ def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
     max_y = None
     for x in range(ary[0].size):
         for y in range(ary[0].size):
-            # Test squares from 1X1 to 300X300
-            for grid_size in range(1, LAST_CELL + 1):
+            for grid_size in grid_sizes:
                 tp = _total_power(ary, grid_size, x, y)
                 if max_total is None:
                     max_total = tp

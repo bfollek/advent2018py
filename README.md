@@ -31,4 +31,4 @@ I took a tip from [reddit](https://www.reddit.com/r/adventofcode/comments/a4j11i
 
 * Day 11 - Done. Typed.
 
-My first pass at part2 ran for several minutes without finishing. So I took a dive into numpy. Its array type was much faster, fast enough to get me a result in under two minutes.
+My first pass at part2 ran for several minutes without finishing. So I took a dive into numpy. Its array type was much faster, fast enough to get me a result in under two minutes. I'm surprised and pleased to be leveraging Fortran in 2019.
