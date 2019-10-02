@@ -5,17 +5,17 @@ GRID_SERIAL_NUM = 5719
 
 def test_part1():
     d = day11.part1(GRID_SERIAL_NUM)
-    assert d["total"] == 29
-    assert d["x"] == 21
-    assert d["y"] == 34
+    assert d.total == 29
+    assert d.x == 21
+    assert d.y == 34
 
 
 def test_part2():
     d = day11.part2(GRID_SERIAL_NUM)
-    assert d["total"] == 124
-    assert d["x"] == 90
-    assert d["y"] == 244
-    assert d["grid size"] == 16
+    assert d.total == 124
+    assert d.x == 90
+    assert d.y == 244
+    assert d.grid_size == 16
 
 
 def test_total_power():

@@ -1,26 +1,35 @@
 #!/usr/bin/env python3
 
+from collections import namedtuple
 from math import floor
-from typing import Any, Dict, Optional, Sequence
 import numpy as np
+from typing import Any, Dict, NamedTuple, Optional, Sequence
 
 # The grid is 1X300
 LAST_CELL = 300
 
+Result = NamedTuple(
+    "Result",
+    [
+        ("total", Optional[int]),
+        ("x", Optional[int]),
+        ("y", Optional[int]),
+        ("grid_size", Optional[int]),
+    ],
+)
 
-def part1(grid_serial_num: int) -> Dict[str, Optional[int]]:
+
+def part1(grid_serial_num: int) -> Result:
     return _find_best_grid(grid_serial_num, [3])
 
 
-def part2(grid_serial_num: int) -> Dict[str, Optional[int]]:
+def part2(grid_serial_num: int) -> Result:
     # Test squares from 1X1 to 300X300
     grid_sizes = range(1, LAST_CELL + 1)
     return _find_best_grid(grid_serial_num, grid_sizes)
 
 
-def _find_best_grid(
-    grid_serial_num: int, grid_sizes: Sequence[int]
-) -> Dict[str, Optional[int]]:
+def _find_best_grid(grid_serial_num: int, grid_sizes: Sequence[int]) -> Result:
     ary = _create_array(grid_serial_num)
     max_total = None
     best_grid_size = None
@@ -37,7 +46,7 @@ def _find_best_grid(
                     max_x = x
                     max_y = y
                     best_grid_size = grid_size
-    return {"total": max_total, "x": max_x, "y": max_y, "grid size": best_grid_size}
+    return Result(max_total, max_x, max_y, best_grid_size)
 
 
 def _total_power(ary: np.ndarray, grid_size, x, y: int) -> Optional[int]:
