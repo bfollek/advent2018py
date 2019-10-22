@@ -39,8 +39,7 @@ def part2(file_name: str) -> int:
     # Which guard is most frequently asleep on the same minute?
     most_minutes = -1
     for id, minutes in nap_map.items():
-        maxy = max(minutes)
-        if maxy > most_minutes:
+        if (maxy := max(minutes)) > most_minutes:
             most_minutes = maxy
             most_index = minutes.index(maxy)
             most_id = id
@@ -60,16 +59,13 @@ def _file_to_naps(file_name: str) -> List[Nap]:
         lines = sorted([line.rstrip() for line in f])
     naps = []
     for line in lines:
-        m = re.search(BEGINS_SHIFT_REGEX, line)
-        if m:
+        if m := re.search(BEGINS_SHIFT_REGEX, line):
             current_id = m.group(1)
             continue
-        m = re.search(FALLS_ASLEEP_REGEX, line)
-        if m:
+        if m := re.search(FALLS_ASLEEP_REGEX, line):
             nap = Nap(current_id, int(m.group(1)))
             continue
-        m = re.search(WAKES_UP_REGEX, line)
-        if m:
+        if m := re.search(WAKES_UP_REGEX, line):
             nap.awake = int(m.group(1))
             naps.append(nap)
             continue
